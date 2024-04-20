@@ -1,0 +1,22 @@
+{
+  "name": "vkr",
+  "version": "1.0.0",
+  "description": "vkr",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alisasob/VKR.git"
+  },
+  "keywords": [
+    "vkr"
+  ],
+  "author": "Alisa Soboleva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alisasob/VKR/issues"
+  },
+  "homepage": "https://github.com/alisasob/VKR#readme"
+}
