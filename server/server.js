@@ -4,13 +4,14 @@ const path = require("path");
 const socketIO = require("socket.io");
 
 const getPlayers = require("./player").getPlayers;
-const getGames = require("./game").getGames;
+//const getGames = require("./game").getGames;
 
 const app = express();
 const server = http.Server(app);
 const io = socketIO(server);
 
 app.set("port", 3000);
+app.use("/css", express.static(path.dirname(__dirname) + "/css"));
 app.use("/static", express.static(path.dirname(__dirname) + "/static"));
 
 app.get("/", (request, response) => {

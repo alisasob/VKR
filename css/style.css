@@ -1,0 +1,112 @@
+body {
+    background-image: radial-gradient(circle, #F4F9F4 10%, #C4E3CB 30%, #8AAE92 55%, #616161 100%);
+    background-attachment: fixed;
+    min-height: 600px;
+    background-size: cover;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+dialog {
+    margin: auto;
+	position: absolute;
+    width: 50%;
+    height: 50%;
+	top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: repeating-linear-gradient(90deg, #b7d7be 20%, #9dc0a5 40%,#b7d7be 60%);
+	border: 3px solid #616161;
+	border-radius: 0px;
+    text-align: center;
+}
+.menu_button
+{
+    width: 50%;
+    height: 15%;
+    /* background: #F4F9F4;  */
+    background-image: radial-gradient(#b7d7be, #F4F9F4 );
+	border: 2px solid #8AAE92;
+    padding: 20px;
+	border-radius: 5px;
+}
+.menu_buttons
+{
+    margin-top: 8%;
+}
+#zatemnenie{
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    /* display: none; */
+}
+.hand{
+    text-align: center;
+}
+.hand_card{
+    background-image: linear-gradient(135deg, #deab1c 20%, #ffe555 50%, #deab1c 100%);
+    width: 130px;
+    height: 200px;
+    position: absolute;
+    margin: auto;
+    top: 50%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border: none;
+    border-radius: 5px;
+}
+.value{
+    margin: auto;
+    left: 0;
+    right: 0;
+    position: absolute;
+
+    width: 60px;
+    height: 30px; /* as the half of the width */
+    border-bottom-left-radius: 35px;  /* 100px of height + 10px of border */
+    border-bottom-right-radius: 35px; /* 100px of height + 10px of border */
+    border: 3px solid #B67C00;
+    border-top: 0;
+}
+.value p{
+    font-size: 25px;
+    color: #B67C00;
+    margin-top: 0;
+}
+.card_img{
+    margin: auto;
+    top: 20%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+.card_img img{
+    width: 120px;
+}
+.num_of_cards{
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+
+    width: 60px;
+    height: 30px; /* as the half of the width */
+    border-top-left-radius: 35px;  /* 100px of height + 10px of border */
+    border-top-right-radius: 35px; /* 100px of height + 10px of border */
+    border: 3px solid #B67C00;
+    border-bottom: 0;
+}
+.num_of_cards p{
+    font-size: 25px;
+    color: #B67C00;
+    margin-top: 0;
+}
