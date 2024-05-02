@@ -18,9 +18,39 @@ dialog {
     bottom: 0;
     right: 0;
     background-image: repeating-linear-gradient(90deg, #b7d7be 20%, #9dc0a5 40%,#b7d7be 60%);
-	border: 3px solid #616161;
-	border-radius: 0px;
+	border: 3px solid #688a70;
+	border-radius: 5px;
     text-align: center;
+}
+#rules {
+    margin: auto;
+	position: absolute;
+    width: 60%;
+    height: 60%;
+	top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: repeating-linear-gradient(90deg, #b7d7be 20%, #9dc0a5 40%,#b7d7be 60%);
+	border: 3px solid #688a70;
+	border-radius: 5px;
+    text-align: start;
+    padding: 20px;
+    display: none;
+    font-size: medium;
+    font: 18px "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    color: #3E5C45;
+    font-weight: 700;
+}
+#close_rules_button {
+    top: 10px;
+    right: 10px;
+    position: absolute;
+    border: none;
+    background: none;
+}
+#close_rules_button img {
+    height: 35px;
 }
 .menu_button
 {
@@ -28,9 +58,13 @@ dialog {
     height: 15%;
     /* background: #F4F9F4;  */
     background-image: radial-gradient(#b7d7be, #F4F9F4 );
-	border: 2px solid #8AAE92;
+	border: 3px solid #8aae92;
     padding: 20px;
 	border-radius: 5px;
+    font: 20px "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    color: #3E5C45;
+    font-weight: 700;
+    
 }
 .menu_buttons
 {
@@ -62,7 +96,7 @@ dialog {
     border: none;
     border-radius: 5px;
 }
-.value{
+.rank{
     margin: auto;
     left: 0;
     right: 0;
@@ -75,7 +109,7 @@ dialog {
     border: 3px solid #B67C00;
     border-top: 0;
 }
-.value p{
+.rank p{
     font-size: 25px;
     color: #B67C00;
     margin-top: 0;

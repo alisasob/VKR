@@ -11,7 +11,7 @@
      <body class = "body">
           <div class="hand">
                <div class="hand_card">
-                    <div class="value"><p>8</p></div>
+                    <div class="rank"><p>8</p></div>
                     <div class="card_img"><img src="./css/card_img8.png"/></div>
                     <div class="num_of_cards"><p>1</p></div>
                </div>
@@ -25,6 +25,21 @@
                     </div>
                </dialog>
           </div>
+          <div id="rules">
+               <button id="close_rules_button"><img src="./css/cross.png"/></button>
+               <p>
+                    Игровая колода состоит из 16 карт, номиналом от 1 до 8. 
+                    В верхней части карты написан её номинал, а в нижней количество таких карт в колоде. 
+                    В начале игры каждому игроку раздаётся по 1 карте. 
+                    Перед своим ходом игрок берёт 1 дополнительную карту из колоды. 
+                    В свой ход игрок должен выложить 1 карту с руки на стол и выполнить её действие. 
+                    Игра продолжается до тех пор, пока в колоде не останется 1 карта. Последняя карта не открывается.
+                    Побеждает игрок, у которого в руке осталась карта с наибольшим номиналом. 
+                    Если у игроков карты с равным номиналом, выигрывает тот, у которого сумма номиналов выложенных на стол карт больше.
+                    Действие карт:
+               </p>
+
+          </div>
           <canvas id = "canvas"></canvas>
           <!-- <p name="hand_lable">Рука 1 игрока: </p>
           <p id="hand1" name="hand">"${game.players[0].hand}"</p>
@@ -33,10 +48,17 @@
           <p name="hand_lable"></p>Рука 3 игрока: </p>
           <p id="hand3" name="hand"></p>
           <form method="get"><input type="text" name="input_card_name" id="input_card_name" required /></form> -->
-     <script> document.querySelector('dialog').show()</script>
+     <script>document.querySelector('dialog').show()</script>
+     <!-- <script>document.getElementById('rules').style.display='none'</script> -->
      <script>document.querySelector('#create_table_button').onclick = function () {
           document.querySelector('#zatemnenie').style.display = 'none';
           document.querySelector('dialog').close();
+          }</script>
+     <script>document.querySelector('#read_rules_button').onclick = function () {
+          document.getElementById('rules').style.display='inline'
+          }</script>
+     <script>document.querySelector('#close_rules_button').onclick = function () {
+          document.getElementById('rules').style.display='none'
           }</script>
      </body>
      <script src="../static/drawPlayer.js"></script>

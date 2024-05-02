@@ -4,6 +4,7 @@ class Player{
     constructor (props){
         this._name = props.name;
         this._id = props.id;
+        this._gameId = props.gameId;
 
         this.hand = [];
         this.openedCards = [];
@@ -21,6 +22,7 @@ module.exports.getPlayers = (socket) => {
         players[socket.id] = new Player({
             id: socket.id,
             name: Object.keys(players).length + 1,
+            gameId: 1,
         })
         //let t = Object.keys(players).length;
         //if (t % 3 == 2){
