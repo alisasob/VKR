@@ -41,6 +41,7 @@ dialog {
     font: 18px "Palatino Linotype", "Book Antiqua", Palatino, serif;
     color: #3E5C45;
     font-weight: 700;
+    overflow: auto;
 }
 #close_rules_button {
     top: 10px;
@@ -51,6 +52,70 @@ dialog {
 }
 #close_rules_button img {
     height: 35px;
+}
+.card_description{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 150px;
+}
+.card_description .txt {
+    margin: 20px;
+    width: 85%;
+}
+.rules_card{
+    text-align: center;
+    background: #edfff1;
+    width: 100px;
+    height: 150px;
+    left: 20px;
+    border: 2px solid #b4dbbc;
+    border-radius: 4px;
+    display: block;
+}
+.rules_card .rank{
+    margin: auto;
+    left: 0;
+    right: 0;
+
+    width: 50px;
+    height: 25px; /* as the half of the width */
+    border-bottom-left-radius: 27px;  /* 100px of height + 10px of border */
+    border-bottom-right-radius: 27px; /* 100px of height + 10px of border */
+    border: 2px solid #b4dbbc;
+    border-top: 0;
+}
+.rules_card .rank p{
+    font-size: 22px;
+    color: #b4dbbc;
+    margin-top: 0;
+}
+.rules_card .card_img{
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 20px;
+}
+.rules_card .card_img img{
+    width: 25px;
+}
+.rules_card .num_of_cards{
+    margin: auto;
+    bottom: 0;
+
+    width: 50px;
+    height: 25px; /* as the half of the width */
+    border-top-left-radius: 27px;  /* 100px of height + 10px of border */
+    border-top-right-radius: 27px; /* 100px of height + 10px of border */
+    border: 2px solid #b4dbbc;
+    border-bottom: 0;
+}
+.rules_card .num_of_cards p{
+    font-size: 22px;
+    color: #b4dbbc;
+    margin-top: 0;
 }
 .menu_button
 {
@@ -96,7 +161,7 @@ dialog {
     border: none;
     border-radius: 5px;
 }
-.rank{
+.hand_card .rank{
     margin: auto;
     left: 0;
     right: 0;
@@ -109,12 +174,12 @@ dialog {
     border: 3px solid #B67C00;
     border-top: 0;
 }
-.rank p{
+.hand_card .rank p{
     font-size: 25px;
     color: #B67C00;
     margin-top: 0;
 }
-.card_img{
+.hand_card .card_img{
     margin: auto;
     top: 20%;
     bottom: 0;
@@ -122,10 +187,10 @@ dialog {
     right: 0;
     position: absolute;
 }
-.card_img img{
+.hand_card .card_img img{
     width: 120px;
 }
-.num_of_cards{
+.hand_card .num_of_cards{
     margin: auto;
     left: 0;
     right: 0;
@@ -139,7 +204,7 @@ dialog {
     border: 3px solid #B67C00;
     border-bottom: 0;
 }
-.num_of_cards p{
+.hand_card .num_of_cards p{
     font-size: 25px;
     color: #B67C00;
     margin-top: 0;
