@@ -8,7 +8,27 @@ canvas.width = WINDOW_WIDTH;
 canvas.height = WINDOW_HEIGTH;
 const context = canvas.getContext("2d");
 
-socket.emit("new player");
+document.querySelector('#create_table_button').onclick = function () {
+    let gId = Math.round(Math.random() * (999999 - 100000) + 100000);
+    socket.emit("new player", gId);
+    console.log(gId);
+    document.querySelector('#zatemnenie').style.display = 'none';
+    document.querySelector('dialog').close();
+};
+
+document.querySelector('#join_table_button').onclick = function () {
+    document.querySelector('#join_table_form_container').style.display = 'inline';
+};
+
+document.querySelector('#join_table_form_button').onclick = function () {
+    let value = document.querySelector('#join_table_form_input').value;
+    console.log(value);
+    // alert(value);
+    document.querySelector('#zatemnenie').style.display = 'none';
+    document.querySelector('dialog').close();
+    document.querySelector('#join_table_form_container').style.display = 'none';
+    socket.emit("new player", value);
+};
 
 socket.on("state", (players) => {
     let t;

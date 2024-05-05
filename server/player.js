@@ -18,12 +18,13 @@ class Player{
 };
 
 module.exports.getPlayers = (socket) => {
-    socket.on("new player", () => {
+    socket.on("new player", (gId) => {
         players[socket.id] = new Player({
             id: socket.id,
             name: Object.keys(players).length + 1,
-            gameId: 1,
+            gameId: gId,
         })
+        console.log(players[socket.id])
         //let t = Object.keys(players).length;
         //if (t % 3 == 2){
             //socket.emit("new game", (players))
