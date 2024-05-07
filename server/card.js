@@ -7,4 +7,4 @@ class Card {
         this.number = number;
     }
 };
-module.exports = Card;
+module.exports.Card = Card;

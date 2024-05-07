@@ -21,19 +21,18 @@ document.querySelector('#join_table_button').onclick = function () {
 };
 
 document.querySelector('#join_table_form_button').onclick = function () {
-    let value = document.querySelector('#join_table_form_input').value;
-    console.log(value);
-    // alert(value);
+    let gId = document.querySelector('#join_table_form_input_ID').value;
+    socket.emit("new player", gId);
+    // alert(gId);
     document.querySelector('#zatemnenie').style.display = 'none';
     document.querySelector('dialog').close();
     document.querySelector('#join_table_form_container').style.display = 'none';
-    socket.emit("new player", value);
 };
 
-socket.on("state", (players) => {
+socket.on("state", (games, players) => {
     let t;
-    for (const id in players){
-        const player = players[id];
+    for (const id in games[players[socket.id]._gameId].players){
+        const player = games[players[socket.id]._gameId].players[id];
         // if (players[id]._id == socket.id){
         //     t = id;
         // }

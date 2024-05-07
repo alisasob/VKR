@@ -19,21 +19,26 @@ class Player{
 
 module.exports.getPlayers = (socket) => {
     socket.on("new player", (gId) => {
+        let t = Object.keys(players).length;
         players[socket.id] = new Player({
             id: socket.id,
-            name: Object.keys(players).length + 1,
+            name: t + 1,
             gameId: gId,
         })
-        console.log(players[socket.id])
-        //let t = Object.keys(players).length;
-        //if (t % 3 == 2){
-            //socket.emit("new game", (players))
-            //console.log(players[t])
-        //}
+        if (t % 3 == 2){
+            socket.emit("new game", (players))
+            console.log('after new game emit log')
+            for (let player in players){
+                console.log(players[player])
+            }
+        }
     });
 
     socket.on("disconnect", () => {
         delete players[socket.id];
     });
     return players;
+
 };
+
+module.exports.Player = Player;

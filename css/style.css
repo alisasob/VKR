@@ -230,13 +230,14 @@ dialog {
     font-weight: 700;
     overflow: auto;
 }
-#join_table_form_input{
-    margin: auto;
-	position: absolute;
-	top: 0;
-    left: 0;
-    bottom: 20%;
-    right: 0;
+#join_table_form_input_ID{
+    margin: 5px;
+	margin-top: 50px;
+    height: 30px;
+    width: 70%;
+}
+#join_table_form_input_name{
+    margin: 5px;
     height: 30px;
     width: 70%;
 }
@@ -246,12 +247,7 @@ dialog {
     background-image: radial-gradient(#b7d7be, #F4F9F4 );
 	border-radius: 5px;
     font: 20px "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    margin: auto;
-    position: absolute;
-	top: 15%;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    margin: 10px;
     height: 40px;
     width: 50%;
 }

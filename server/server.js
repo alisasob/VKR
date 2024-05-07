@@ -4,7 +4,7 @@ const path = require("path");
 const socketIO = require("socket.io");
 
 const getPlayers = require("./player").getPlayers;
-//const getGames = require("./game").getGames;
+const getGames = require("./game").getGames;
 
 const app = express();
 const server = http.Server(app);
@@ -23,16 +23,18 @@ server.listen(3000, function(){
 });
 
 let players = null;
+let games = null;
 io.on("connection", (socket) => {
     players = getPlayers(socket);
+    games = getGames(socket);
 });
 
-const gameLoop = (players, io) => {
-    io.sockets.emit("state", players);
+const gameLoop = (games, players, io) => {
+    io.sockets.emit("state", games, players);
 };
 
 setInterval(() => {
-    if (players && io) {
-        gameLoop(players, io);
+    if (games && players && io) {
+        gameLoop(games, players, io);
     }
 }, 1000 / 60)
