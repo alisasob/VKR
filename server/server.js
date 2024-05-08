@@ -26,7 +26,7 @@ let players = null;
 let games = null;
 io.on("connection", (socket) => {
     players = getPlayers(socket);
-    games = getGames(socket);
+    games = getGames();
 });
 
 const gameLoop = (games, players, io) => {

@@ -24,6 +24,7 @@ document.querySelector('#join_table_form_button').onclick = function () {
     let gId = document.querySelector('#join_table_form_input_ID').value;
     socket.emit("new player", gId);
     // alert(gId);
+    //socket.emit("new game", gId, {});
     document.querySelector('#zatemnenie').style.display = 'none';
     document.querySelector('dialog').close();
     document.querySelector('#join_table_form_container').style.display = 'none';
@@ -31,7 +32,7 @@ document.querySelector('#join_table_form_button').onclick = function () {
 
 socket.on("state", (games, players) => {
     let t;
-    for (const id in games[players[socket.id]._gameId].players){
+    for (let id in games[players[socket.id]._gameId].players){
         const player = games[players[socket.id]._gameId].players[id];
         // if (players[id]._id == socket.id){
         //     t = id;

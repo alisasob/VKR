@@ -1,5 +1,5 @@
 const C = require("./card.js");
-const P = require("./player.js");
+//const P = require("./player.js");
 const games = {};
 
 class Game{
@@ -12,10 +12,17 @@ class Game{
         this.players = players;
         this.turningPlayer = Math.round(Math.random() * (Object.keys(this.players).length - 0) + 0);  // индекс игрока, чей ход
         // Раздать карты
+        let s;
         for (let player in this.players){ 
-            this.players[player].hand.push(this.drawCard);
+            players[player].hand.push(this.drawCard);
+            if ( players[player]._name == this.turningPlayer){
+                s = players[player]._id;
+            }
         }
-        this.players[this.turningPlayer].hand.push(this.drawCard);
+        this.players[s].hand.push(this.drawCard);
+        // for (let player in this.players){ 
+        //     console.log(this.players[player]);
+        // }
     }
     get drawCard () {
         return (this.cardsPool.pop(Math.random() * (this.cardsPool.length - 1 - 0) + 0));
@@ -57,17 +64,18 @@ class Game{
     }
 }
 
-module.exports.getGames = (socket) => {
-    socket.on("new game", (gId, players) => {
-        games[gId] = new Game(gId, players)
-        console.log('am in game!')
-        console.log(games[gId])
-        //let t = Object.keys(players).length;
-        //if (t % 3 == 2){
-            //socket.emit("new game", (players))
-            //console.log(players[t])
-        //}
-    });
+module.exports.getGames = () => {
+    // socket.on("new game", (gId, players) => {
+    //     console.log('am in game!');
+    //     games[gId] = new Game(gId, players);
+    //     console.log('am in game!');
+    //     console.log(games[gId]);
+    //     //let t = Object.keys(players).length;
+    //     //if (t % 3 == 2){
+    //         //socket.emit("new game", (players))
+    //         //console.log(players[t])
+    //     //}
+    // });
 
     // socket.on("disconnect", () => {
     //     delete players[socket.id];
@@ -92,3 +100,5 @@ module.exports.getGames = (socket) => {
 //    console.log(player._name);
 //    console.log(player.hand);
 // }
+
+module.exports.Game = Game;
