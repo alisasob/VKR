@@ -58,6 +58,7 @@ dialog {
     flex-wrap: wrap;
     flex-direction: column;
     height: 150px;
+    margin-bottom: 10px;
 }
 .card_description .txt {
     margin: 20px;
@@ -99,7 +100,7 @@ dialog {
     margin: 20px;
 }
 .rules_card .card_img img{
-    width: 25px;
+    height: 50px;
 }
 .rules_card .num_of_cards{
     margin: auto;
@@ -250,4 +251,14 @@ dialog {
     margin: 10px;
     height: 40px;
     width: 50%;
+}
+#close_join_form_button {
+    top: 10px;
+    right: 10px;
+    position: absolute;
+    border: none;
+    background: none;
+}
+#close_join_form_button img {
+    height: 35px;
 }

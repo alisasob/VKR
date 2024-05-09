@@ -30,6 +30,7 @@ document.querySelector('#join_table_form_button').onclick = function () {
     document.querySelector('#join_table_form_container').style.display = 'none';
 };
 
+
 socket.on("state", (games, players) => {
     let t;
     for (let id in games[players[socket.id]._gameId].players){

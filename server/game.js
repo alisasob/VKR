@@ -29,7 +29,7 @@ class Game{
     }
     fillCardPool(){
         // 4 policies
-        this.cardsPool.push(new C.Card(1, 'img', 'D0000D', 'white', 4));
+        this.cardsPool.push(new C.Card(1, 'img', 'D0000D', '#b4dbbc', 4));
         this.cardsPool.push(new C.Card(1, 'img', 'D0000D', 'white', 4));
         this.cardsPool.push(new C.Card(1, 'img', 'D0000D', 'white', 4));
         this.cardsPool.push(new C.Card(1, 'img', 'D0000D', 'white', 4));
