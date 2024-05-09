@@ -10,22 +10,24 @@ class Game{
         this.fillCardPool();
         // Создать игроков
         this.players = players;
-        this.turningPlayer = Math.round(Math.random() * (Object.keys(this.players).length - 0) + 0);  // индекс игрока, чей ход
+        let s = Math.round(Math.random() * (Object.keys(this.players).length - 1 - 0) + 0);  // индекс игрока, чей ход
         // Раздать карты
-        let s;
         for (let player in this.players){ 
             players[player].hand.push(this.drawCard);
-            if ( players[player]._name == this.turningPlayer){
-                s = players[player]._id;
+            //console.log(this.players[player].hand);
+            if (players[player]._num == s){
+                this.turningPlayer = players[player]._id;
             }
         }
-        this.players[s].hand.push(this.drawCard);
+        //console.log(this.turningPlayer);
+        this.players[this.turningPlayer].hand.push(this.drawCard);
+        //console.log(this.players[this.turningPlayer].hand);
         // for (let player in this.players){ 
         //     console.log(this.players[player]);
         // }
     }
     get drawCard () {
-        return (this.cardsPool.pop(Math.random() * (this.cardsPool.length - 1 - 0) + 0));
+        return (this.cardsPool.splice(Math.random() * (Object.keys(this.cardsPool).length - 1 - 0) + 0, 1));
     }
     fillCardPool(){
         // 4 policies

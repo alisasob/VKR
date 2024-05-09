@@ -43,16 +43,6 @@ dialog {
     font-weight: 700;
     overflow: auto;
 }
-#close_rules_button {
-    top: 10px;
-    right: 10px;
-    position: absolute;
-    border: none;
-    background: none;
-}
-#close_rules_button img {
-    height: 35px;
-}
 .card_description{
     display: flex;
     flex-wrap: wrap;
@@ -210,7 +200,7 @@ dialog {
     color: #B67C00;
     margin-top: 0;
 }
-#join_table_form_container {
+.form_container {
     margin: auto;
 	position: absolute;
     width: 30%;
@@ -231,18 +221,18 @@ dialog {
     font-weight: 700;
     overflow: auto;
 }
-#join_table_form_input_ID{
+.game_id_input{
+    margin: 5px;
+    height: 30px;
+    width: 70%;
+}
+.name_input{
     margin: 5px;
 	margin-top: 50px;
     height: 30px;
     width: 70%;
 }
-#join_table_form_input_name{
-    margin: 5px;
-    height: 30px;
-    width: 70%;
-}
-#join_table_form_button{
+.form_button{
     color: #3E5C45;
 	border: 3px solid #8aae92;
     background-image: radial-gradient(#b7d7be, #F4F9F4 );
@@ -252,13 +242,19 @@ dialog {
     height: 40px;
     width: 50%;
 }
-#close_join_form_button {
+.close_button {
     top: 10px;
     right: 10px;
     position: absolute;
     border: none;
     background: none;
 }
-#close_join_form_button img {
+.close_button img {
     height: 35px;
+}
+
+#close_rules_button {
+    top: 20%;
+    right: 20%;
+    position: fixed;
 }

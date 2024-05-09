@@ -26,7 +26,7 @@
                </dialog>
           </div>
           <div id="rules">
-               <button id="close_rules_button"><img src="./css/cross.png"/></button>
+               <button id="close_rules_button"  class="close_button"><img src="./css/cross.png"/></button>
                <p>
                     Игровая колода состоит из 16 карт, номиналом от 1 до 8. 
                     В верхней части карты написан её номинал, а в нижней количество таких карт в колоде. 
@@ -55,7 +55,8 @@
                          <div class="num_of_cards" style="border-color: #b4dbbc;"><p style="color: #b4dbbc;">1</p></div>
                     </div>
                     <p class="txt">
-                         Выберите игрока и назовите карту (кроме 1). Если вы угадали противник выбывает из игры.
+                         Выберите игрока и назовите карту (кроме 1). Если вы угадали противник выбывает из игры. Если не угадали, вы можете предпринять ещё одну попытку.
+                         Если не угадали и во второй раз, вы выбываете из игры.
                     </p>
                </div>
                <div class="card_description">
@@ -65,7 +66,7 @@
                          <div class="num_of_cards" style="border-color: #dded77;"><p style="color: #dded77;">2</p></div>
                     </div>
                     <p class="txt">
-                         Выберите игрока и назовите карту (кроме 1). Если вы угадали противник выбывает из игры.
+                         Выберите игрока и посмотрите его карту.
                     </p>
                </div>
                <div class="card_description">
@@ -75,7 +76,7 @@
                          <div class="num_of_cards" style="border-color: #e88d98;"><p style="color: #e88d98;">1</p></div>
                     </div>
                     <p class="txt">
-                         Выберите игрока и назовите карту (кроме 1). Если вы угадали противник выбывает из игры.
+                         Выберите игрока и сравните с ним номиналы карт. Тот, у которого номинал меньше, выбывает из игры.
                     </p>
                </div>
                <div class="card_description">
@@ -85,7 +86,7 @@
                          <div class="num_of_cards" style="border-color: #d177e0;"><p style="color: #d177e0;">2</p></div>
                     </div>
                     <p class="txt">
-                         Выберите игрока и назовите карту (кроме 1). Если вы угадали противник выбывает из игры.
+                         До следующего вашего хода вы защищены от действия карт противников.
                     </p>
                </div>
                <div class="card_description">
@@ -95,7 +96,7 @@
                          <div class="num_of_cards" style="border-color: #67b7c2;"><p style="color: #67b7c2;">2</p></div>
                     </div>
                     <p class="txt">
-                         Выберите игрока и назовите карту (кроме 1). Если вы угадали противник выбывает из игры.
+                         Выберите игрока (можно себя), этот игрок выкладывает на стол свою карту и берёт из колоды новую.
                     </p>
                </div>
                <div class="card_description">
@@ -105,7 +106,7 @@
                          <div class="num_of_cards" style="border-color: #667ad4;"><p style="color: #667ad4;">2</p></div>
                     </div>
                     <p class="txt">
-                         Выберите игрока и назовите карту (кроме 1). Если вы угадали противник выбывает из игры.
+                         Выберите игрока и обменяйтесь с ним картой.
                     </p>
                </div>
                <div class="card_description">
@@ -115,7 +116,7 @@
                          <div class="num_of_cards" style="border-color: #7d67d6;"><p style="color: #7d67d6;">1</p></div>
                     </div>
                     <p class="txt">
-                         Выберите игрока и назовите карту (кроме 1). Если вы угадали противник выбывает из игры.
+                         Если у вас также карта с номиналом 5 или 6, вы должны выложить на стол эту карту (с номиналом 7).
                     </p>
                </div>
                <div class="card_description">
@@ -125,15 +126,20 @@
                          <div class="num_of_cards" style="border-color: #B67C00;"><p style="color: #B67C00;">1</p></div>
                     </div>
                     <p class="txt">
-                         Выберите игрока и назовите карту (кроме 1). Если вы угадали противник выбывает из игры.
+                         Вы выбываете из игры.
                     </p>
                </div>
           </div>
-          <div id="join_table_form_container">
-               <button id="close_join_form_button"><img src="./css/cross.png"/></button>
-               <input id="join_table_form_input_ID" name="text" type="text" placeholder="ID стола" minlength="6" maxlength="6" required/>
-               <input id="join_table_form_input_name" name="text" type="text" placeholder="Никнейм"/>
-               <input id="join_table_form_button" type="submit" value="Присоединиться"/>
+          <div id="join_table_form_container" class="form_container">
+               <button id="close_join_form_button" class="close_button"><img src="./css/cross.png"/></button>
+               <input id="join_table_form_input_name" class="name_input" name="text" type="text" placeholder="Никнейм"/>
+               <input id="join_table_form_input_ID" class="game_id_input" name="text" type="text" placeholder="ID стола" minlength="6" maxlength="6" required/>
+               <input id="join_table_form_button" class="form_button" type="submit" value="Присоединиться"/>
+          </div>
+          <div id="create_table_form_container" class="form_container">
+               <button id="close_create_form_button" class="close_button"><img src="./css/cross.png"/></button>
+               <input id="create_table_form_input_name" class="name_input" name="text" type="text" placeholder="Никнейм"/>
+               <input id="create_table_form_button" class="form_button" type="submit" value="Создать"/>
           </div>
           <canvas id = "canvas"></canvas>
           <!-- <p name="hand_lable">Рука 1 игрока: </p>
@@ -154,6 +160,9 @@
           }</script>
      <script>document.querySelector('#close_rules_button').onclick = function () {
           document.getElementById('rules').style.display='none'
+          }</script>
+     <script>document.querySelector('#close_create_form_button').onclick = function () {
+          document.querySelector('#create_table_form_container').style.display = 'none';
           }</script>
      <script>document.querySelector('#close_join_form_button').onclick = function () {
           document.querySelector('#join_table_form_container').style.display = 'none';

@@ -7,6 +7,7 @@ class Player{
         this._name = props.name;
         this._id = props.id;
         this._gameId = props.gameId;
+        this._num = props.number;
 
         this.hand = [];
         this.openedCards = [];
@@ -20,13 +21,14 @@ class Player{
 };
 
 module.exports.getPlayers = (socket) => {
-    socket.on("new player", (gId) => {
+    socket.on("new player", (gId, name) => {
         let t = Object.keys(players).length;
         const games = G.getGames();
         players[socket.id] = new Player({
             id: socket.id,
-            name: t + 1,
+            name: name,
             gameId: gId,
+            number: Object.keys(players).length,
         })
         if (t % 3 == 2){
             //console.log(gId);
