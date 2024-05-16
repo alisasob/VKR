@@ -16,8 +16,8 @@ app.use("/css", express.static(path.dirname(__dirname) + "/css"));
 app.use("/static", express.static(path.dirname(__dirname) + "/static"));
 
 app.get("/", (request, response) => {
-    //response.sendFile(path.join(__dirname, "index.html"));
-    response.render("index");
+    response.sendFile(path.join(__dirname, "index.html"));
+    //response.render("index");
 });
 
 server.listen(3000, function(){

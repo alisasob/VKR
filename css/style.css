@@ -140,7 +140,7 @@ dialog {
     text-align: center;
 }
 .hand_card{
-    background-image: linear-gradient(135deg, #deab1c 20%, #ffe555 50%, #deab1c 100%);
+    /* background-image: linear-gradient(135deg, #deab1c 20%, #ffe555 50%, #deab1c 100%); */
     width: 130px;
     height: 200px;
     position: absolute;
@@ -162,12 +162,12 @@ dialog {
     height: 30px; /* as the half of the width */
     border-bottom-left-radius: 35px;  /* 100px of height + 10px of border */
     border-bottom-right-radius: 35px; /* 100px of height + 10px of border */
-    border: 3px solid #B67C00;
+    border: 3px solid /*#B67C00*/;
     border-top: 0;
 }
 .hand_card .rank p{
     font-size: 25px;
-    color: #B67C00;
+    /* color: #B67C00; */
     margin-top: 0;
 }
 .hand_card .card_img{
@@ -192,12 +192,12 @@ dialog {
     height: 30px; /* as the half of the width */
     border-top-left-radius: 35px;  /* 100px of height + 10px of border */
     border-top-right-radius: 35px; /* 100px of height + 10px of border */
-    border: 3px solid #B67C00;
+    border: 3px solid /*#B67C00*/;
     border-bottom: 0;
 }
 .hand_card .num_of_cards p{
     font-size: 25px;
-    color: #B67C00;
+    /* color: #B67C00; */
     margin-top: 0;
 }
 .form_container {
