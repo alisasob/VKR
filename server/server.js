@@ -11,11 +11,13 @@ const server = http.Server(app);
 const io = socketIO(server);
 
 app.set("port", 3000);
+app.set("view engine", "ejs")
 app.use("/css", express.static(path.dirname(__dirname) + "/css"));
 app.use("/static", express.static(path.dirname(__dirname) + "/static"));
 
 app.get("/", (request, response) => {
-    response.sendFile(path.join(__dirname, "index.html"));
+    //response.sendFile(path.join(__dirname, "index.html"));
+    response.render("index");
 });
 
 server.listen(3000, function(){
@@ -27,14 +29,20 @@ let games = null;
 io.on("connection", (socket) => {
     players = getPlayers(socket);
     games = getGames();
+    socket.on("new game", () => {
+        players = getPlayers(socket);
+        games = getGames();
+        io.sockets.emit("start", games, players);
+    });
 });
 
-const gameLoop = (games, players, io) => {
-    io.sockets.emit("state", games, players);
-};
 
-setInterval(() => {
-    if (games && players && io) {
-        gameLoop(games, players, io);
-    }
-}, 1000 / 60)
+// const gameLoop = (games, players, io) => {
+//     io.sockets.emit("state", games, players);
+// };
+
+// setInterval(() => {
+//     if (games && players && io) {
+//         gameLoop(games, players, io);
+//     }
+// }, 1000 / 60)

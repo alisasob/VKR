@@ -1,13 +1,11 @@
 const socket = io();
+//const WINDOW_WIDTH = 1000;
+//const WINDOW_HEIGTH = 500;
 
-const WINDOW_WIDTH = 1000;
-const WINDOW_HEIGTH = 500;
-
-const canvas = document.getElementById("canvas");
-canvas.width = WINDOW_WIDTH;
-canvas.height = WINDOW_HEIGTH;
-const context = canvas.getContext("2d");
-
+// const canvas = document.getElementById("canvas");
+// canvas.width = WINDOW_WIDTH;
+// canvas.height = WINDOW_HEIGTH;
+// const context = canvas.getContext("2d");
 document.querySelector('#create_table_button').onclick = function () {
     document.querySelector('#create_table_form_container').style.display = 'inline';
 };
@@ -37,32 +35,50 @@ document.querySelector('#join_table_form_button').onclick = function () {
     document.querySelector('#join_table_form_container').style.display = 'none';
 };
 
+document.querySelector(".hand_card").onclick = function() {
 
-socket.on("state", (games, players) => {
-    //let t = document.createElement("div");
-    //t.id = "table_cards";
+}
+
+socket.on("new game", () => {
+    socket.emit("new game");
+});
+
+socket.on("start", (games, players) => {
     let player;
-    //console.log('console.log');
-    //console.log(players[socket.id]._gameId);
-    //console.log(games[players[socket.id]._gameId].players);
     for (let id in games[players[socket.id]._gameId].players){
         player = games[players[socket.id]._gameId].players[id];
-        //let c = document.createElement("div");
-        //c.id = `p${player._num}_cards`;
-       // for (let i in player.hand){
-            //c.appendChild(document.createTextNode(`${player.hand[i].number}`));
-        //}
-       // t.appendChild(document.createTextNode(`Player: ${player._num}`));
-       // t.appendChild(c);
-        //console.log(player);
-        // if (players[id]._id == socket.id){
-        //     t = id;
-        // }
-        drawPlayer(context, player);
+        //drawPlayer(context, player);
     } 
-    //document.querySelector('body').appendChild(t);
-
-    context.beginPath();
-    context.fillText(`My hand: ${players[socket.id].hand}`, WINDOW_WIDTH/2, WINDOW_HEIGTH - 100)
-    context.closePath();
+    //context.beginPath();
+    //context.fillText(`My hand: `, WINDOW_WIDTH/2, WINDOW_HEIGTH - 100);
+    let i = 1;
+    for (let card in players[socket.id].hand){
+        const handCard = document.createElement("div");
+        handCard.innerHTML = `<p>${players[socket.id].hand[card].rank}</p>`
+        // handCard.setAttribute('id', `hand_card#${card + 1}`);
+        // handCard.setAttribute('class', 'hand_card');
+        // if (players[socket.id].hand[card].card_img == 'card_img11.png' || players[socket.id].hand[card].card_img == 'card_img8.png'){
+        //     rank.style.backgroundImage = players[socket.id].hand[card].backGround;
+        // } else {
+        //     rank.style.backgroundColor = players[socket.id].hand[card].backGround;
+        // };
+        // const rank = document.createElement("div");
+        // rank.setAttribute('class', 'rank');
+        // rank.style.color = players[socket.id].hand[card].color;
+        // rank.innerHTML = `<p>${players[socket.id].hand[card].rank}</p>`
+        // handCard.appendChild(rank);
+        // const card_img = document.createElement("div");
+        // card_img.setAttribute('class', 'card_img');
+        // card_img.innerHTML = `img src="./css/${players[socket.id].hand[card].img}/>`
+        // handCard.appendChild(card_img);
+        // const num_of_cards = document.createElement("div");
+        // num_of_cards.setAttribute('class', 'num_of_cards');
+        // num_of_cards.style.color = players[socket.id].hand[card].color;
+        // num_of_cards.innerHTML = `<p>${players[socket.id].hand[card].number}</p>`
+        // handCard.appendChild(num_of_cards);
+        document.getElementById("hand").appendChild(handCard);
+        //context.fillText(`${players[socket.id].hand[card].rank}`,  WINDOW_WIDTH/2 + i * 150, WINDOW_HEIGTH - 100);
+        i++;
+    }
+    //context.closePath();
 });

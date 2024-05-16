@@ -27,42 +27,44 @@ class Game{
         // }
     }
     get drawCard () {
-        return (this.cardsPool.splice(Math.random() * (Object.keys(this.cardsPool).length - 1 - 0) + 0, 1));
+        return (this.cardsPool.splice(Math.random() * (Object.keys(this.cardsPool).length - 1 - 0) + 0, 1)[0]);
     }
     fillCardPool(){
         // 4 policies
-        this.cardsPool.push(new C.Card(1, 'img', 'D0000D', '#b4dbbc', 4));
-        this.cardsPool.push(new C.Card(1, 'img', 'D0000D', 'white', 4));
-        this.cardsPool.push(new C.Card(1, 'img', 'D0000D', 'white', 4));
-        this.cardsPool.push(new C.Card(1, 'img', 'D0000D', 'white', 4));
+        this.cardsPool.push(new C.Card(1, 'card_img1.png', '#b4dbbc', '#edfff1', '#edfff1', 4));
+        this.cardsPool.push(new C.Card(1, 'card_img1.png', '#b4dbbc', '#edfff1', '#edfff1', 4));
+        this.cardsPool.push(new C.Card(1, 'card_img1.png', '#b4dbbc', '#edfff1', '#edfff1', 4));
+        this.cardsPool.push(new C.Card(1, 'card_img1.png', '#b4dbbc', '#edfff1', '#edfff1', 4));
     
         // 1 sheriff
-        this.cardsPool.push(new C.Card(1, 'img', 'D0000D', 'white', 1));
+        this.cardsPool.push(new C.Card(1, 'card_img11.png', '#b4dbbc', '#edfff1', 
+                                          'radial-gradient(circle, #b4dbbc 30%, #edfff1 100%);', 1));
     
         // 2 witnesses
-        this.cardsPool.push(new C.Card(2, 'img', 'D0000D', 'white', 2));
-        this.cardsPool.push(new C.Card(2, 'img', 'D0000D', 'white', 2));
+        this.cardsPool.push(new C.Card(2, 'card_img2.png', '#dded77', '#f9ffd1', '#f9ffd1;', 2));
+        this.cardsPool.push(new C.Card(2, 'card_img2.png', '#dded77', '#f9ffd1', '#f9ffd1;', 2));
     
         // 1 judge
-        this.cardsPool.push(new C.Card(3, 'img', 'D0000D', 'white', 3));
+        this.cardsPool.push(new C.Card(3, 'card_img3.png', '#e88d98', '#ffbdcc', '#ffbdcc;', 3));
     
         // 2 lawyers
-        this.cardsPool.push(new C.Card(4, 'img', 'D0000D', 'white', 2));
-        this.cardsPool.push(new C.Card(4, 'img', 'D0000D', 'white', 2));
+        this.cardsPool.push(new C.Card(4, 'card_img4.png', '#d177e0', '#f2abff', '#f2abff;', 2));
+        this.cardsPool.push(new C.Card(4, 'card_img4.png', '#d177e0', '#f2abff', '#f2abff;', 2));
     
         // 2 killers
-        this.cardsPool.push(new C.Card(5, 'img', 'D0000D', 'white', 2));
-        this.cardsPool.push(new C.Card(5, 'img', 'D0000D', 'white', 2));
+        this.cardsPool.push(new C.Card(5, 'card_img5.png', '#67b7c2', '#8bd2db', '#8bd2db;', 2));
+        this.cardsPool.push(new C.Card(5, 'card_img5.png', '#67b7c2', '#8bd2db', '#8bd2db;', 2));
     
         // 2 setups
-        this.cardsPool.push(new C.Card(6, 'img', 'D0000D', 'white', 2));
-        this.cardsPool.push(new C.Card(6, 'img', 'D0000D', 'white', 2));
+        this.cardsPool.push(new C.Card(6, 'card_img6.png', '#667ad4', '#879bf0', '#879bf0;', 2));
+        this.cardsPool.push(new C.Card(6, 'card_img6.png', '#667ad4', '#879bf0', '#879bf0;', 2));
     
         // 1 godfather
-        this.cardsPool.push(new C.Card(7, 'img', 'D0000D', 'white', 1));
+        this.cardsPool.push(new C.Card(7, 'card_img7.png', '#7d67d6', '#9984ed', '#9984ed;', 1));
     
         // 1 million
-        this.cardsPool.push(new C.Card(8, 'card_img8.png', 'background-image: linear-gradient(135deg, #deab1c 20%, #ffe555 50%, #deab1c 100%);', '#B67C00', 1));
+        this.cardsPool.push(new C.Card(8, 'card_img8.png', '#B67C00', ' #deab1c', 
+                                          'linear-gradient(135deg, #deab1c 20%, #ffe555 50%, #deab1c 100%);', 1));
     }
 }
 

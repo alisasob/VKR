@@ -36,8 +36,7 @@ module.exports.getPlayers = (socket) => {
             //     console.log(players[player])
             // }
             games[gId] = new G.Game(gId, players);
-            //socket.emit("new game", gId, players);
-            
+            socket.emit("new game");
         }
     });
 
