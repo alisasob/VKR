@@ -51,7 +51,7 @@ socket.on("start", (games) => {
     for (let id in gp){
         player = gp[id];
         //console.log(player.openedCards)
-        htmlStr += `<div class="player" style="bottom: ${47 - (k * 15)}%">
+        htmlStr += `<div class="player" style="bottom: ${47 - (k * 30)}%">
                     <p class="player_name">${player._name}</p>
                     <div class="table_cards">`;
         if (Object.keys(player.openedCards).length == 0){
@@ -59,7 +59,7 @@ socket.on("start", (games) => {
         }
         else {
             for (let i in player.openedCards){
-                htmlStr += `<div class="table_card" id="${player.openedCards[i].cardClass}">
+                htmlStr += `<div class="table_card" id="${player.openedCards[i].cardClass}" style="right: ${47 - (i * 40)}%">
                                     <div class="rank"><p>${player.openedCards[i].rank}</p></div>
                                     <div class="num_of_cards"><p>${player.openedCards[i].number}</p></div>
                                 </div>`
@@ -73,9 +73,7 @@ socket.on("start", (games) => {
     htmlStr = ``;
     let img;
     k = Object.keys(gp[socket.id].hand).length - 1;
-    if (k > 0){
-        k *= -1; 
-    }
+    k *= -1; 
     for (let card in gp[socket.id].hand){
         img = `card_img${gp[socket.id].hand[card].rank}.png`;
         //console.log(img);
