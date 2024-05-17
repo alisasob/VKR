@@ -5,6 +5,8 @@ const socketIO = require("socket.io");
 
 const getPlayers = require("./player").getPlayers;
 const getGames = require("./game").getGames;
+const G = require("./game.js");
+const P = require("./player.js");
 
 const app = express();
 const server = http.Server(app);
@@ -27,22 +29,44 @@ server.listen(3000, function(){
 let players = null;
 let games = null;
 io.on("connection", (socket) => {
-    players = getPlayers(socket);
+    players = getPlayers();
     games = getGames();
-    socket.on("new game", () => {
-        players = getPlayers(socket);
+    socket.on("new player", (gId, name) => {
+        let t = Object.keys(players).length;
         games = getGames();
-        io.sockets.emit("start", games, players);
+        players[socket.id] = new P.Player({
+            id: socket.id,
+            name: name,
+            gameId: gId,
+            number: Object.keys(players).length,
+        })
+        if (t >= 2){
+            games[gId] = new G.Game(gId, players);
+            io.sockets.emit("start", games);
+            players = {};
+            //console.log(games[gId]);
+        }
+    });
+    socket.on("turn", (cardId) =>
+    {
+        players = getPlayers();
+        games = getGames();
+        let gId = players[socket.id]._gameId;
+        for (let i in games[gId].players[socket.id].hand){
+            if (games[gId].players[socket.id].hand[i].cardClass == cardId){
+                //console.log("hand cards:", games[gId].players[socket.id].hand);
+                //console.log("opened cards:", games[gId].players[socket.id].openedCards);
+                games[gId].players[socket.id].openedCards.push(games[gId].players[socket.id].hand.splice(i, 1)[0])
+                //console.log("hand cards:", games[gId].players[socket.id].hand);
+                //console.log("opened cards:", games[gId].players[socket.id].openedCards);
+
+            };
+        };
+        io.sockets.emit("start", games);
+        //console.log(games);
+    });
+
+    socket.on("disconnect", () => {
+        delete players[socket.id];
     });
 });
-
-
-// const gameLoop = (games, players, io) => {
-//     io.sockets.emit("state", games, players);
-// };
-
-// setInterval(() => {
-//     if (games && players && io) {
-//         gameLoop(games, players, io);
-//     }
-// }, 1000 / 60)

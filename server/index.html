@@ -9,13 +9,10 @@
           <link href="css/style.css" rel="stylesheet" type="text/css"/>
      </head>
      <body class = "body">
-          <div class="hand" id="hand">
-               <!-- <div class="hand_card">
-                    <div class="rank"><p>8</p></div>
-                    <div class="card_img"><img src="./css/card_img8.png"/></div>
-                    <div class="num_of_cards"><p>1</p></div>
-               </div> -->
-          </div>
+          <div class="deck" id="deck_extra_card"></div>
+          <div class="deck" id="deck"><p class="deck_num">16</p></div>
+          <div class="players" id="players"></div>
+          <div class="hand" id="hand"></div>
           <div id="zatemnenie"> 
                <dialog>
                     <div class="menu_buttons">
@@ -142,15 +139,7 @@
                <input id="create_table_form_button" class="form_button" type="submit" value="Создать"/>
           </div>
           <canvas id = "canvas"></canvas>
-          <!-- <p name="hand_lable">Рука 1 игрока: </p>
-          <p id="hand1" name="hand">"${game.players[0].hand}"</p>
-          <p name="hand_lable"></p>Рука 2 игрока: </p>
-          <p id="hand2" name="hand"></p>
-          <p name="hand_lable"></p>Рука 3 игрока: </p>
-          <p id="hand3" name="hand"></p>
-          <form method="get"><input type="text" name="input_card_name" id="input_card_name" required /></form> -->
      <script>document.querySelector('dialog').show()</script>
-     <!-- <script>document.getElementById('rules').style.display='none'</script> -->
      <script>document.querySelector('#create_table_button').onclick = function () {
           document.querySelector('#zatemnenie').style.display = 'none';
           document.querySelector('dialog').close();
@@ -168,6 +157,5 @@
           document.querySelector('#join_table_form_container').style.display = 'none';
           }</script>
      </body>
-     <!-- <script src="../static/drawPlayer.js"></script> -->
      <script src="../static/main.js"></script>
 </html>

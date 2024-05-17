@@ -1,6 +1,4 @@
-const G = require("./game.js");
-
-const players = {};
+let players = {};
 
 class Player{
     constructor (props){
@@ -20,31 +18,8 @@ class Player{
     }
 };
 
-module.exports.getPlayers = (socket) => {
-    socket.on("new player", (gId, name) => {
-        let t = Object.keys(players).length;
-        const games = G.getGames();
-        players[socket.id] = new Player({
-            id: socket.id,
-            name: name,
-            gameId: gId,
-            number: Object.keys(players).length,
-        })
-        if (t % 3 == 2){
-            //console.log(gId);
-            // for (let player in players){
-            //     console.log(players[player])
-            // }
-            games[gId] = new G.Game(gId, players);
-            socket.emit("new game");
-        }
-    });
-
-    socket.on("disconnect", () => {
-        delete players[socket.id];
-    });
+module.exports.getPlayers = () => {
     return players;
-
 };
 
-//module.exports.Player = Player;
+module.exports.Player = Player;

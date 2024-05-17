@@ -1,10 +1,7 @@
 class Card {
-    constructor(rank, img, textColor, backColor, backGround, number) {
+    constructor(cardClass, rank, number) {
+        this.cardClass = cardClass;
         this.rank = rank;
-        this.img = img;
-        this.textColor = textColor;
-        this.backColor = backColor;
-        this.backGround = backGround;
         this.number = number;
     }
 };

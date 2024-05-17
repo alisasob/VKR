@@ -136,11 +136,111 @@ dialog {
     display: block;
     /* display: none; */
 }
+.deck{
+    background-image: radial-gradient(circle, #616161 10%, #899789 50%, #b4dbbc 100%);
+    width: 200px;
+    height: 130px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 47%;
+    right: 0;
+    border: 3px solid #F4F9F4;
+    border-radius: 5px;
+}
+.deck_num{
+    color:#C4E3CB;
+    font: 48px "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+    position: absolute;
+    margin: auto;
+    top: 25%;
+    left: 40%;
+}
+#deck_extra_card{
+    height: 200px;
+    width: 130px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 43%;
+    right: 0;
+}
+.player{
+    height: 30%;
+    width: 30%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 47%;
+    right: 40%;
+}
+.player_name{
+    font: 36px "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+    color: #363636;
+    padding: 20px;
+}
+.table_cards{
+    text-align: center;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 30%;
+}
+.table_card{
+    width: 80px;
+    height: 100px;
+    text-align: center;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border: 3px solid;
+    border-radius: 5px;
+}
+.table_card .rank{
+    margin: auto;
+    left: 0;
+    right: 0;
+    position: absolute;
+
+    width: 60px;
+    height: 30px; /* as the half of the width */
+    border-bottom-left-radius: 35px;  /* 100px of height + 10px of border */
+    border-bottom-right-radius: 35px; /* 100px of height + 10px of border */
+    border: 3px solid /*#B67C00*/;
+    border-top: 0;
+}
+.table_card .rank p{
+    font: 25px "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    margin-top: 0;
+}
+.table_card .num_of_cards{
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+
+    width: 60px;
+    height: 30px; /* as the half of the width */
+    border-top-left-radius: 35px;  /* 100px of height + 10px of border */
+    border-top-right-radius: 35px; /* 100px of height + 10px of border */
+    border: 3px solid;
+    border-bottom: 0;
+}
+.table_card .num_of_cards p{
+    font: 25px "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    margin-top: 0;
+}
 .hand{
     text-align: center;
 }
 .hand_card{
-    /* background-image: linear-gradient(135deg, #deab1c 20%, #ffe555 50%, #deab1c 100%); */
     width: 130px;
     height: 200px;
     position: absolute;
@@ -149,7 +249,7 @@ dialog {
     left: 0;
     bottom: 0;
     right: 0;
-    border: none;
+    border: 3px solid;
     border-radius: 5px;
 }
 .hand_card .rank{
@@ -166,8 +266,7 @@ dialog {
     border-top: 0;
 }
 .hand_card .rank p{
-    font-size: 25px;
-    /* color: #B67C00; */
+    font: 25px "Palatino Linotype", "Book Antiqua", Palatino, serif;
     margin-top: 0;
 }
 .hand_card .card_img{
@@ -192,13 +291,103 @@ dialog {
     height: 30px; /* as the half of the width */
     border-top-left-radius: 35px;  /* 100px of height + 10px of border */
     border-top-right-radius: 35px; /* 100px of height + 10px of border */
-    border: 3px solid /*#B67C00*/;
+    border: 3px solid;
     border-bottom: 0;
 }
 .hand_card .num_of_cards p{
-    font-size: 25px;
-    /* color: #B67C00; */
+    font: 25px "Palatino Linotype", "Book Antiqua", Palatino, serif;
     margin-top: 0;
+}
+#police{
+    background-color: #edfff1;
+    border-color: #b4dbbc;
+}
+#police .num_of_cards, #police .rank{
+    border-color: #b4dbbc;
+}
+#police .num_of_cards p, #police .rank p {
+    color: #b4dbbc;
+
+}
+#sheriff{
+    background-image: radial-gradient(circle, #c7e7ce 30%, #edfff1 100%);
+    border-color: #b4dbbc;
+}
+#sheriff .num_of_cards, #sheriff .rank{
+    border-color: #b4dbbc;
+}
+#sheriff .num_of_cards p, #sheriff .rank p {
+    color: #b4dbbc;
+}
+#witness{
+    background-color: #f9ffd1;
+    border-color: #dded77;
+}
+#witness .num_of_cards, #witness .rank{
+    border-color: #dded77;
+}
+#witness .num_of_cards p, #witness .rank p {
+    color: #dded77;
+}
+#judge{
+    background-color: #ffbdcc;
+    border-color: #e88d98;
+}
+#judge .num_of_cards, #judge .rank{
+    border-color: #e88d98;
+}
+#judge .num_of_cards p, #judge .rank p {
+    color: #e88d98;
+}
+#lawyer{
+    background-color: #f2abff;
+    border-color: #d177e0;
+}
+#lawyer .num_of_cards, #lawyer .rank{
+    border-color: #d177e0;
+}
+#lawyer .num_of_cards p, #lawyer .rank p {
+    color: #d177e0;
+}
+#killer{
+    background-color: #8bd2db;
+    border-color: #67b7c2;
+}
+#killer .num_of_cards, #killer .rank{
+    border-color: #67b7c2;
+}
+#killer .num_of_cards p, #killer .rank p {
+    color: #67b7c2;
+}
+#setup{
+    background-color: #879bf0;
+    border-color: #667ad4;
+}
+#setup .num_of_cards, #setup .rank{
+    border-color: #667ad4;
+}
+#setup .num_of_cards p, #setup .rank p {
+    color: #667ad4;
+}
+#godfather{
+    background-color: #9984ed;
+    border-color: #7d67d6;
+}
+#godfather .num_of_cards, #godfather .rank{
+    border-color: #7d67d6;
+}
+#godfather .num_of_cards p, #godfather .rank p {
+    color: #7d67d6;
+}
+#million{
+    background-image: linear-gradient(135deg, #deab1c 20%, #ffe555 50%, #deab1c 100%);
+    border-color: #B67C00;
+}
+#million .num_of_cards, #million .rank{
+    border-color: #B67C00;
+}
+#million .num_of_cards p, #million .rank p {
+    color: #B67C00;
 }
 .form_container {
     margin: auto;
