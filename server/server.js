@@ -59,9 +59,22 @@ io.on("connection", (socket) => {
                 games[gId].players[socket.id].openedCards.push(games[gId].players[socket.id].hand.splice(i, 1)[0])
                 //console.log("hand cards:", games[gId].players[socket.id].hand);
                 //console.log("opened cards:", games[gId].players[socket.id].openedCards);
-
             };
         };
+        let active = games[gId].activePlayers;
+        let i;
+        for (i in active){
+            if (active[i] == games[gId].turningPlayer){
+                break;
+            };
+        };
+        i++;
+        if (i == Object.keys(active).length){
+            i = 0;
+        };
+        games[gId].turningPlayer = active[i];
+        games[gId].players[games[gId].turningPlayer].hand.push(games[gId].drawCard);
+        //console.log(games[gId].activePlayers);
         io.sockets.emit("start", games);
         //console.log(games);
     });

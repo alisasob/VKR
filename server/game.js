@@ -19,11 +19,21 @@ class Game{
             }
         }
         this.players[this.turningPlayer].hand.push(this.drawCard);
-    }
+    };
 
     get drawCard () {
         return (this.cardsPool.splice(Math.random() * (Object.keys(this.cardsPool).length - 1 - 0) + 0, 1)[0]);
-    }
+    };
+
+    get activePlayers () {
+        let array = [];
+        for (let id in this.players){
+            if (this.players[id].active){
+                array.push(id);
+            };
+        };
+        return (array);
+    };
 
     fillCardPool(){
          // 4 policies

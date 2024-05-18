@@ -237,10 +237,21 @@ dialog {
     font: 25px "Palatino Linotype", "Book Antiqua", Palatino, serif;
     margin-top: 0;
 }
+.victim{
+    width: 130px;
+    height: 250px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
 .hand{
     text-align: center;
 }
-.hand_card{
+.hand_card, .victim_card{
+    text-align: center;
     width: 130px;
     height: 200px;
     position: absolute;
@@ -252,7 +263,7 @@ dialog {
     border: 3px solid;
     border-radius: 5px;
 }
-.hand_card .rank{
+.hand_card .rank, .victim_card .rank{
     margin: auto;
     left: 0;
     right: 0;
@@ -265,11 +276,11 @@ dialog {
     border: 3px solid /*#B67C00*/;
     border-top: 0;
 }
-.hand_card .rank p{
+.hand_card .rank p, .victim_card .rank p{
     font: 25px "Palatino Linotype", "Book Antiqua", Palatino, serif;
     margin-top: 0;
 }
-.hand_card .card_img{
+.hand_card .card_img, .victim_card .card_img{
     margin: auto;
     top: 20%;
     bottom: 0;
@@ -277,10 +288,10 @@ dialog {
     right: 0;
     position: absolute;
 }
-.hand_card .card_img img{
+.hand_card .card_img img, .victim_card .card_img img{
     width: 120px;
 }
-.hand_card .num_of_cards{
+.hand_card .num_of_cards, .victim_card .num_of_cards{
     margin: auto;
     left: 0;
     right: 0;
@@ -294,7 +305,7 @@ dialog {
     border: 3px solid;
     border-bottom: 0;
 }
-.hand_card .num_of_cards p{
+.hand_card .num_of_cards p, .victim_card .num_of_cards p{
     font: 25px "Palatino Linotype", "Book Antiqua", Palatino, serif;
     margin-top: 0;
 }
@@ -446,4 +457,22 @@ dialog {
     top: 20%;
     right: 20%;
     position: fixed;
+}
+#close_victim_card_button{
+    width: 100px;
+}
+#pick_player_form{
+    text-align: center;
+}
+.pick_player_players{
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding-top: 30px;
+    width: 300px;
+    height: 100px;
+    font: 20px "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    text-align: left;
 }
