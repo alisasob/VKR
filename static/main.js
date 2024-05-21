@@ -53,8 +53,12 @@ function turnClick(cardId) {
                         break;
                     }
                 };
-                if (cardId == 'poice'){} else
-                if (cardId == 'sheriff'){} else
+                if (cardId == 'police'){
+                    socket.emit("turn", cardId, victim);
+                } else
+                if (cardId == 'sheriff'){
+                    socket.emit("turn", cardId, victim);
+                } else
                 if (cardId == 'witness'){
                     //console.log(currentGame.players[victim].hand[0]);
                     let img = `card_img${currentGame.players[victim].hand[0].rank}.png`;
@@ -68,22 +72,46 @@ function turnClick(cardId) {
                                                 <p>${currentGame.players[victim].hand[0].rank}</p></div>
                                                 <div class="card_img"><img src="./css/${img}"/></div>
                                                 <div class="num_of_cards">
-                                                <p>${currentGame.players[victim].hand[0].number}</p></div></div>
-                                                <input id="close_victim_card_button" class="form_button" 
-                                                type="button" value="Ок"/>`
-                        );
+                                                <p>${currentGame.players[victim].hand[0].number}</p></div></div>`);
                     document.querySelector('.victim_card').style.cssText = 'margin-bottom: 25%';
                     document.querySelector('#zatemnenie').style.display = 'inline';
                     document.querySelector('#victim').style.display = 'inline';
-                    // document.querySelector('#close_victim_card_button').onclick = function () {
-                    //     document.querySelector('#zatemnenie').style.display = 'none';
-                    //     document.querySelector('#victim').style.display = 'none';
-                    // };
+                    document.querySelector('#zatemnenie').onclick = function () {
+                        document.querySelector('#zatemnenie').style.display = 'none';
+                        document.querySelector('#victim').style.display = 'none';
+                        socket.emit("turn", cardId, victim);
+                    };
                 } else
-                if (cardId == 'judge'){} else
-                if (cardId == 'killer'){} else
-                if (cardId == 'setup'){};
-                socket.emit("turn", cardId, victim);
+                if (cardId == 'judge'){
+                    let c = (currentGame.players[socket.id].hand[0] == 'judge') ? currentGame.players[socket.id].hand[1].rank
+                                                                                : currentGame.players[socket.id].hand[0].rank;
+                    if (currentGame.players[victim].hand[0].rank > c){
+                        console.log('u loose');
+                    } else if (currentGame.players[victim].hand[0].rank < c){
+                        console.log('victim loose');
+                    } else{
+                        console.log('draw');
+                    };
+                    socket.emit("turn", cardId, victim);
+                } else
+                if (cardId == 'killer'){
+                    let c = (currentGame.players[socket.id].hand[0] == 'killer') ? currentGame.players[socket.id].hand[1].rank
+                                                                                 : currentGame.players[socket.id].hand[0].rank;
+                    if (c == 7){
+                        alert('wrong move!');
+                        return;
+                    };
+                    socket.emit("turn", cardId, victim);
+                } else
+                if (cardId == 'setup'){
+                    let c = (currentGame.players[socket.id].hand[0] == 'setup') ? currentGame.players[socket.id].hand[1].rank
+                                                                                : currentGame.players[socket.id].hand[0].rank;
+                    if (c == 7){
+                        alert('wrong move!');
+                        return;
+                    };
+                    socket.emit("turn", cardId, victim);
+                };
             };
         } else {
             if (cardId == 'lawyer'){} else

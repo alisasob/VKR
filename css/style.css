@@ -1,5 +1,6 @@
 body {
-    background-image: radial-gradient(circle, #F4F9F4 10%, #C4E3CB 30%, #8AAE92 55%, #616161 100%);
+    /* background-image: radial-gradient(circle, #F4F9F4 10%, #C4E3CB 30%, #8AAE92 55%, #616161 100%); */
+    background-image: url("extra_back1.jpg");
     background-attachment: fixed;
     min-height: 600px;
     background-size: cover;

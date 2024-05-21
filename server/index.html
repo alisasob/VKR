@@ -13,15 +13,14 @@
           <div class="deck" id="deck"><p class="deck_num">16</p></div>
           <div class="players" id="players"></div>
           <div class="hand" id="hand"></div>
-          <div id="zatemnenie"> 
-               <dialog>
-                    <div class="menu_buttons">
-                    <P><button class="menu_button" id="create_table_button">Создать стол</button></P>
-                    <p><button class="menu_button" id="join_table_button">Присоединиться к игре</button></P>
-                    <p><button class="menu_button" id="read_rules_button">Правила игры</button></P>
-                    </div>
-               </dialog>
-          </div>
+          <div id="zatemnenie"></div>
+          <dialog>
+               <div class="menu_buttons">
+               <P><button class="menu_button" id="create_table_button">Создать стол</button></P>
+               <p><button class="menu_button" id="join_table_button">Присоединиться к игре</button></P>
+               <p><button class="menu_button" id="read_rules_button">Правила игры</button></P>
+               </div>
+          </dialog>
           <div id="rules">
                <button id="close_rules_button"  class="close_button"><img src="./css/cross.png"/></button>
                <p>
@@ -140,6 +139,8 @@
           </form>
           <form class="form_container" id="pick_player_form"></form>
           <div class="victim" id="victim" style="display: none;"></div>
+          <div class="comment" id="comment" style="display: none;"></div>
+
           <script>document.querySelector('dialog').show()</script>
           <script>document.querySelector('#create_table_button').onclick = function () {
                document.querySelector('#zatemnenie').style.display = 'none';
