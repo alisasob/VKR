@@ -72,7 +72,17 @@ io.on("connection", (socket) => {
                 games[gId].players[victim].openedCards.push(games[gId].players[victim].hand.splice(0, 1)[0]);
             }
         }else 
-        if (cardId == 'sheriff'){}else 
+        if (cardId == 'sheriff'){
+            if (victim != games[gId].turningPlayer){
+                if (victim == 'death'){
+                    games[gId].players[socket.id].active = false;
+                    games[gId].players[socket.id].openedCards.push(games[gId].players[socket.id].hand.splice(0, 1)[0]);
+                } else {
+                    games[gId].players[victim].active = false;
+                    games[gId].players[victim].openedCards.push(games[gId].players[victim].hand.splice(0, 1)[0]);
+                };
+            }
+        }else 
         if (cardId == 'witness'){}else 
         if (cardId == 'judge'){
             let c = (games[gId].players[socket.id].hand[0].cardClass == 'judge') ? 1
@@ -105,7 +115,9 @@ io.on("connection", (socket) => {
         }else 
         if (cardId == 'godfather'){}else 
         if (cardId == 'million'){
-            games[gId].players[socket.id].active = false;}
+            games[gId].players[socket.id].active = false;
+            games[gId].players[socket.id].openedCards.push(games[gId].players[socket.id].hand.splice(0, 1)[0]);
+        }
         let active = games[gId].activePlayers;
         let i;
         for (i in active){
@@ -150,14 +162,10 @@ io.on("connection", (socket) => {
                     };
                 };
             };
-            console.log(players)
             for (let i in games[gId].players){
                 delete players[i];
             }
-            console.log(players)
-            console.log(games)
             delete games[gId];
-            console.log(games)
             io.sockets.emit("end", winner);
         } else{
         io.sockets.emit("start", games);

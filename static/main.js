@@ -30,7 +30,6 @@ document.querySelector('#join_table_form_button').onclick = function () {
 
 
 function turnClick(cardId) {
-    console.log(cardId);
     if (currentGame.turningPlayer == socket.id){
         let victim;
         if (['police', 'sheriff', 'witness', 'judge', 'killer', 'setup'].includes(cardId)){
@@ -44,6 +43,40 @@ function turnClick(cardId) {
             //console.log(players);
             if (Object.keys(players).length == 0){
                 victim = currentGame.turningPlayer;
+                if (cardId == 'killer' || cardId == 'setup'){
+                    let c;
+                        if (currentGame.players[socket.id].hand[0].cardClass == 'killer') {
+                            c = currentGame.players[socket.id].hand[1].rank;
+                        } else {
+                            c = currentGame.players[socket.id].hand[0].rank;
+                        };
+                        if (c == 7){
+                            document.querySelector('#comment').innerHTML = '<p>Некорректный ход!</p>';
+                            document.querySelector('#zatemnenie').style.display = 'inline';
+                            document.querySelector('#comment').style.display = 'inline';
+                            document.querySelector('#zatemnenie').onclick = function () {
+                                document.querySelector('#zatemnenie').style.display = 'none';
+                                document.querySelector('#comment').style.display = 'none';
+                            };
+                            return;
+                        } else {
+                            if (currentGame.players[socket.id].hand[0].cardClass == 'setup') {
+                                c = currentGame.players[socket.id].hand[1].rank;
+                            } else {
+                                c = currentGame.players[socket.id].hand[0].rank;
+                            };
+                            if (c == 7){
+                                document.querySelector('#comment').innerHTML = '<p>Некорректный ход!</p>';
+                                document.querySelector('#zatemnenie').style.display = 'inline';
+                                document.querySelector('#comment').style.display = 'inline';
+                                document.querySelector('#zatemnenie').onclick = function () {
+                                    document.querySelector('#zatemnenie').style.display = 'none';
+                                    document.querySelector('#comment').style.display = 'none';
+                                };
+                                return;
+                            };
+                        };
+                };
                 socket.emit("turn", cardId, victim);
             } else {
                 let str = `<div class="pick_player_players" id="pick_player_players">`;
@@ -88,9 +121,9 @@ function turnClick(cardId) {
                     if (cardId == 'sheriff'){
                         document.querySelector('#zatemnenie').style.display = 'inline';
                         document.querySelector('#pick_card_form').innerHTML = `<input name="pick_card_form_input"
-                         required id="pick_card_form_input" class="card_input" type="text" placeholder="Номинал карты (от 2 до 8)"
-                          minlength="1" maxlength="1"/>
-                        <input id="pick_card_form_button" class="form_button" type="button" value="Ок"/>`;
+                                                required id="pick_card_form_input" class="card_input" type="text" placeholder="Номинал карты (от 2 до 8)"
+                                                minlength="1" maxlength="1"/>
+                                                <input id="pick_card_form_button" class="form_button" type="button" value="Ок"/>`;
                         document.querySelector('#pick_card_form').style.display = 'inline';
                         document.querySelector('#pick_card_form_button').onclick = function () {
                             let value;
@@ -98,9 +131,39 @@ function turnClick(cardId) {
                             document.querySelector('#zatemnenie').style.display = 'none';
                             value = document.querySelector('#pick_card_form_input').value;
                             if (currentGame.players[victim].hand[0].rank != value || value == 1){
-                                victim = socket.id;
-                            }
-                        socket.emit("turn", cardId, victim);
+                                document.querySelector('#zatemnenie').style.display = 'inline';
+                                document.querySelector('#continue_form').innerHTML = `
+                                                <p>Попробуете угадать ещё раз?</p>
+                                                <input id="continue_form_no" class="form_button" type="button" value="Нет"/>
+                                                <input id="continue_form_yes" class="form_button" type="button" value="Да"/>`;
+                                document.querySelector('#continue_form').style.display = 'inline';
+                                document.querySelector('#continue_form_yes').onclick = function () {
+                                    document.querySelector('#continue_form').style.display = 'none';
+                                    document.querySelector('#pick_card_form').innerHTML = `<input name="pick_card_form_input"
+                                                required id="pick_card_form_input" class="card_input" type="text" placeholder="Номинал карты (от 2 до 8)"
+                                                minlength="1" maxlength="1"/>
+                                                <input id="pick_card_form_button" class="form_button" type="button" value="Ок"/>`;
+                                    document.querySelector('#pick_card_form').style.display = 'inline';
+                                    document.querySelector('#pick_card_form_button').onclick = function () {
+                                        document.querySelector('#pick_card_form').style.display = 'none';
+                                        document.querySelector('#zatemnenie').style.display = 'none';
+                                        value = document.querySelector('#pick_card_form_input').value;
+                                        if (currentGame.players[victim].hand[0].rank != value || value == 1){
+                                            victim = 'death';
+                                            console.log("if of death", victim)
+                                            socket.emit("turn", cardId, victim);
+                                        };
+                                    };
+                                };
+                                document.querySelector('#continue_form_no').onclick = function () {
+                                    document.querySelector('#continue_form').style.display = 'none';
+                                    document.querySelector('#zatemnenie').style.display = 'none';
+                                    victim = socket.id;
+                                    socket.emit("turn", cardId, victim);
+                                }
+                            } else{
+                                socket.emit("turn", cardId, victim);
+                            };
                         }
                     } else
                     if (cardId == 'witness'){

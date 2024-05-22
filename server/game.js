@@ -37,20 +37,20 @@ class Game{
 
     fillCardPool(){
          // 4 policies
-        // this.cardsPool.push(new C.Card('police', 1, 4));
-        // this.cardsPool.push(new C.Card('police', 1, 4));
-        // this.cardsPool.push(new C.Card('police', 1, 4));
-        // this.cardsPool.push(new C.Card('police', 1, 4));
-        // // 1 sheriff
-        // this.cardsPool.push(new C.Card('sheriff', 1, 1));
-        // // 2 witnesses
-        // this.cardsPool.push(new C.Card('witness', 2, 2));
-        // this.cardsPool.push(new C.Card('witness', 2, 2));
-        // // 1 judge
-        // this.cardsPool.push(new C.Card('judge', 3, 1));
-        // // 2 lawyers
-        // this.cardsPool.push(new C.Card('lawyer', 4, 2));
-        // this.cardsPool.push(new C.Card('lawyer', 4, 2));
+        this.cardsPool.push(new C.Card('police', 1, 4));
+        this.cardsPool.push(new C.Card('police', 1, 4));
+        this.cardsPool.push(new C.Card('police', 1, 4));
+        this.cardsPool.push(new C.Card('police', 1, 4));
+        // 1 sheriff
+        this.cardsPool.push(new C.Card('sheriff', 1, 1));
+        // 2 witnesses
+        this.cardsPool.push(new C.Card('witness', 2, 2));
+        this.cardsPool.push(new C.Card('witness', 2, 2));
+        // 1 judge
+        this.cardsPool.push(new C.Card('judge', 3, 1));
+        // 2 lawyers
+        this.cardsPool.push(new C.Card('lawyer', 4, 2));
+        this.cardsPool.push(new C.Card('lawyer', 4, 2));
         // 2 killers
         this.cardsPool.push(new C.Card('killer', 5, 2));
         this.cardsPool.push(new C.Card('killer', 5, 2));
@@ -59,9 +59,8 @@ class Game{
         this.cardsPool.push(new C.Card('setup', 6, 2));
         // 1 godfather
         this.cardsPool.push(new C.Card('godfather', 7, 1));
-        this.cardsPool.push(new C.Card('godfather', 7, 1));
         // 1 million
-        //this.cardsPool.push(new C.Card('million', 8, 1));
+        this.cardsPool.push(new C.Card('million', 8, 1));
     }
 }
 
