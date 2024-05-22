@@ -33,84 +33,114 @@ function turnClick(cardId) {
     if (currentGame.turningPlayer == socket.id){
         let victim;
         if (['police', 'sheriff', 'witness', 'judge', 'killer', 'setup'].includes(cardId)){
-            let str = `<div class="pick_player_players" id="pick_player_players">`;
+            let players = [];
             for (let i in currentGame.players){
-                str += ` <input type="radio" id="pick_player_form_radio1" name="pick_player_form_radio" required class="pick_player_form_radio" value="${currentGame.players[i]._id}"/>
-                <label for="pick_player_form_radio1">${currentGame.players[i]._name}</label><br>`;
-            };
-            str += `</div>
-                    <input id="pick_player_form_button" class="form_button" type="button" value="Ок"/>`;
-            document.querySelector('#pick_player_form').innerHTML = str;
-            document.querySelector('#zatemnenie').style.display = 'inline';
-            document.querySelector('#pick_player_form').style.display = 'inline';
-            document.querySelector('#pick_player_form_button').onclick = function () {
-                document.querySelector('#pick_player_form').style.display = 'none';
-                document.querySelector('#zatemnenie').style.display = 'none';
-                let els = document.getElementsByName('pick_player_form_radio');
-                for (let i in els){
-                    if (els[i].checked){
-                        victim = els[i].value;
-                        break;
-                    }
+                if (currentGame.players[i].active && !currentGame.players[i].protected && 
+                    (cardId == 'killer' || currentGame.players[i]._id != currentGame.turningPlayer)){
+                    players.push(currentGame.players[i]);
                 };
-                if (cardId == 'police'){
-                    socket.emit("turn", cardId, victim);
-                } else
-                if (cardId == 'sheriff'){
-                    socket.emit("turn", cardId, victim);
-                } else
-                if (cardId == 'witness'){
-                    //console.log(currentGame.players[victim].hand[0]);
-                    let img = `card_img${currentGame.players[victim].hand[0].rank}.png`;
-                    //console.log(img);
-                    if (currentGame.players[victim].hand[0].cardClass == 'sheriff'){
-                        img = `card_img11.png`;
+            };
+            //console.log(players);
+            if (Object.keys(players).length == 0){
+                victim = currentGame.turningPlayer;
+                socket.emit("turn", cardId, victim);
+            } else {
+                let str = `<div class="pick_player_players" id="pick_player_players">`;
+                for (let i in players){
+                        str += ` <input type="radio" id="pick_player_form_radio1" name="pick_player_form_radio" 
+                                required class="pick_player_form_radio" value="${players[i]._id}"/>
+                                <label for="pick_player_form_radio1">${players[i]._name}</label><br>`;
+                };
+                str += `</div>
+                        <input id="pick_player_form_button" class="form_button" type="button" value="Ок"/>`;
+                document.querySelector('#pick_player_form').innerHTML = str;
+                document.querySelector('#zatemnenie').style.display = 'inline';
+                document.querySelector('#pick_player_form').style.display = 'inline';
+                document.querySelector('#pick_player_form_button').onclick = function () {
+                    document.querySelector('#pick_player_form').style.display = 'none';
+                    document.querySelector('#zatemnenie').style.display = 'none';
+                    let els = document.getElementsByName('pick_player_form_radio');
+                    for (let i in els){
+                        if (els[i].checked){
+                            victim = els[i].value;
+                            break;
+                        };
                     };
-                    console.log(document.querySelector('#victim').innerHTML = `<div class="victim_card" 
-                                                id="${currentGame.players[victim].hand[0].cardClass}">
-                                                <div class="rank">
-                                                <p>${currentGame.players[victim].hand[0].rank}</p></div>
-                                                <div class="card_img"><img src="./css/${img}"/></div>
-                                                <div class="num_of_cards">
-                                                <p>${currentGame.players[victim].hand[0].number}</p></div></div>`);
-                    document.querySelector('.victim_card').style.cssText = 'margin-bottom: 25%';
-                    document.querySelector('#zatemnenie').style.display = 'inline';
-                    document.querySelector('#victim').style.display = 'inline';
-                    document.querySelector('#zatemnenie').onclick = function () {
-                        document.querySelector('#zatemnenie').style.display = 'none';
-                        document.querySelector('#victim').style.display = 'none';
+                    if (cardId == 'police'){
+                        document.querySelector('#zatemnenie').style.display = 'inline';
+                        document.querySelector('#pick_card_form').innerHTML = `<input name="pick_card_form_input"
+                         required id="pick_card_form_input" class="card_input" type="text" placeholder="Номинал карты (от 2 до 8)"
+                          minlength="1" maxlength="1"/>
+                        <input id="pick_card_form_button" class="form_button" type="button" value="Ок"/>`;
+                        document.querySelector('#pick_card_form').style.display = 'inline';
+                        document.querySelector('#pick_card_form_button').onclick = function () {
+                            let value;
+                            document.querySelector('#pick_card_form').style.display = 'none';
+                            document.querySelector('#zatemnenie').style.display = 'none';
+                            value = document.querySelector('#pick_card_form_input').value;
+                            if (currentGame.players[victim].hand[0].rank != value){
+                                victim = socket.id;
+                            }
+                            socket.emit("turn", cardId, victim);
+                        }
+                    } else
+                    if (cardId == 'sheriff'){
+                        socket.emit("turn", cardId, victim);
+                    } else
+                    if (cardId == 'witness'){
+                        let img = `card_img${currentGame.players[victim].hand[0].rank}.png`;
+                        if (currentGame.players[victim].hand[0].cardClass == 'sheriff'){
+                            img = `card_img11.png`;
+                        };
+                        document.querySelector('#victim').innerHTML = `<div class="victim_card" 
+                                                    id="${currentGame.players[victim].hand[0].cardClass}">
+                                                    <div class="rank">
+                                                    <p>${currentGame.players[victim].hand[0].rank}</p></div>
+                                                    <div class="card_img"><img src="./css/${img}"/></div>
+                                                    <div class="num_of_cards">
+                                                    <p>${currentGame.players[victim].hand[0].number}</p></div></div>`;
+                        document.querySelector('.victim_card').style.cssText = 'margin-bottom: 25%';
+                        document.querySelector('#zatemnenie').style.display = 'inline';
+                        document.querySelector('#victim').style.display = 'inline';
+                        document.querySelector('#zatemnenie').onclick = function () {
+                            document.querySelector('#zatemnenie').style.display = 'none';
+                            document.querySelector('#victim').style.display = 'none';
+                            socket.emit("turn", cardId, victim);
+                        };
+                    } else
+                    if (cardId == 'judge'){
+                        socket.emit("turn", cardId, victim);
+                    } else
+                    if (cardId == 'killer'){
+                        let c = (currentGame.players[socket.id].hand[0] == 'killer') ? currentGame.players[socket.id].hand[1].rank
+                                                                                        : currentGame.players[socket.id].hand[0].rank;
+                        if (c == 7){
+                            document.querySelector('#comment').innerHTML = '<p>Некорректный ход!</p>';
+                            document.querySelector('#zatemnenie').style.display = 'inline';
+                            document.querySelector('#comment').style.display = 'inline';
+                            document.querySelector('#zatemnenie').onclick = function () {
+                                document.querySelector('#zatemnenie').style.display = 'none';
+                                document.querySelector('#comment').style.display = 'none';
+                            };
+                            return;
+                        };
+                        socket.emit("turn", cardId, victim);
+                    } else
+                    if (cardId == 'setup'){
+                        let c = (currentGame.players[socket.id].hand[0] == 'setup') ? currentGame.players[socket.id].hand[1].rank
+                                                                                    : currentGame.players[socket.id].hand[0].rank;
+                        if (c == 7){
+                            document.querySelector('#comment').innerHTML = '<p>Некорректный ход!</p>';
+                            document.querySelector('#zatemnenie').style.display = 'inline';
+                            document.querySelector('#comment').style.display = 'inline';
+                            document.querySelector('#zatemnenie').onclick = function () {
+                                document.querySelector('#zatemnenie').style.display = 'none';
+                                document.querySelector('#comment').style.display = 'none';
+                            };
+                            return;
+                        };
                         socket.emit("turn", cardId, victim);
                     };
-                } else
-                if (cardId == 'judge'){
-                    let c = (currentGame.players[socket.id].hand[0] == 'judge') ? currentGame.players[socket.id].hand[1].rank
-                                                                                : currentGame.players[socket.id].hand[0].rank;
-                    if (currentGame.players[victim].hand[0].rank > c){
-                        console.log('u loose');
-                    } else if (currentGame.players[victim].hand[0].rank < c){
-                        console.log('victim loose');
-                    } else{
-                        console.log('draw');
-                    };
-                    socket.emit("turn", cardId, victim);
-                } else
-                if (cardId == 'killer'){
-                    let c = (currentGame.players[socket.id].hand[0] == 'killer') ? currentGame.players[socket.id].hand[1].rank
-                                                                                 : currentGame.players[socket.id].hand[0].rank;
-                    if (c == 7){
-                        alert('wrong move!');
-                        return;
-                    };
-                    socket.emit("turn", cardId, victim);
-                } else
-                if (cardId == 'setup'){
-                    let c = (currentGame.players[socket.id].hand[0] == 'setup') ? currentGame.players[socket.id].hand[1].rank
-                                                                                : currentGame.players[socket.id].hand[0].rank;
-                    if (c == 7){
-                        alert('wrong move!');
-                        return;
-                    };
-                    socket.emit("turn", cardId, victim);
                 };
             };
         } else {
@@ -137,6 +167,22 @@ socket.on("start", (games) => {
             }
         }
     }
+    // let active = currentGame.activePlayers();
+    // if (Object.keys(active).length <= 1 || Object.keys(currentGame.cardsPool).length <= 1){
+    //     let winner = active[0];
+    //     if (Object.keys(active).length <= 1){
+    //         winner = active[0];
+    //     } else {
+    //         for (let i in active){
+    //             if (active[i].hand[0].rank > winner.rank){
+    //                 winner = active[i];
+    //             }
+    //         }
+    //     }
+    //     document.querySelector('#comment').innerHTML = `<p>Игра окончена!</p><p>Победил ${winner._name}!</p>`;
+    //                         document.querySelector('#zatemnenie').style.display = 'inline';
+    //                         document.querySelector('#comment').style.display = 'inline';
+    // }
     let htmlStr = ``;
     let k = Object.keys(gp).length - 1;
     for (let id in gp){
@@ -183,4 +229,10 @@ socket.on("start", (games) => {
     document.querySelector('title').innerHTML = gp[socket.id]._name;
     document.querySelector('#deck').innerHTML = `<p class="deck_num">${Object.keys(currentGame.cardsPool).length}</p>`;
     document.querySelector('#hand').innerHTML = htmlStr;
+});
+
+socket.on("end", (winner) => {
+    document.querySelector('#comment').innerHTML = `<p>Игра окончена!</p><p>Победил ${winner._name}!</p>`;
+                             document.querySelector('#zatemnenie').style.display = 'inline';
+                             document.querySelector('#comment').style.display = 'inline';
 });

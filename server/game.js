@@ -22,7 +22,7 @@ class Game{
     };
 
     get drawCard () {
-        return (this.cardsPool.splice(Math.random() * (Object.keys(this.cardsPool).length - 1 - 0) + 0, 1)[0]);
+        return (this.cardsPool.splice(Math.random() * (Object.keys(this.cardsPool).length - 0) + 0, 1)[0]);
     };
 
     get activePlayers () {

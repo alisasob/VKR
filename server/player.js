@@ -10,6 +10,7 @@ class Player{
         this.hand = [];
         this.openedCards = [];
         this.active = true;
+        this.protected = false;
     }
     get lastCard () {
         let retVal = {};

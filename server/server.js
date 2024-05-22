@@ -47,7 +47,7 @@ io.on("connection", (socket) => {
             //console.log(games[gId]);
         }
     });
-    socket.on("turn", (cardId) =>
+    socket.on("turn", (cardId, victim) =>
     {
         players = getPlayers();
         games = getGames();
@@ -61,6 +61,46 @@ io.on("connection", (socket) => {
                 //console.log("opened cards:", games[gId].players[socket.id].openedCards);
             };
         };
+        if (cardId == 'police'){
+            if (victim != games[gId].turningPlayer){
+                games[gId].players[victim].active = false;
+                games[gId].players[victim].openedCards.push(games[gId].players[victim].hand.splice(0, 1)[0]);
+            }
+        }else 
+        if (cardId == 'sheriff'){}else 
+        if (cardId == 'witness'){}else 
+        if (cardId == 'judge'){
+            let c = (games[gId].players[socket.id].hand[0].cardClass == 'judge') ? 1
+                                                                                 : 0;
+            if (games[gId].players[victim].hand[0].rank < games[gId].players[socket.id].hand[c].rank){
+                games[gId].players[victim].active = false;
+                games[gId].players[victim].openedCards.push(games[gId].players[victim].hand.splice(0, 1)[0]);
+            } else 
+            if (games[gId].players[victim].hand[0].rank > games[gId].players[socket.id].hand[c].rank){
+                games[gId].players[socket.id].active = false;
+                games[gId].players[socket.id].openedCards.push(games[gId].players[socket.id].hand.splice(0, 1)[0]);
+            }
+        }else 
+        if (cardId == 'lawyer'){
+            games[gId].players[socket.id].protected = true;
+        }else 
+        if (cardId == 'killer'){
+            games[gId].players[victim].openedCards.push(games[gId].players[victim].hand.splice(0, 1)[0]);
+            if (games[gId].players[victim].openedCards[Object.keys(games[gId].players[victim].openedCards).length - 1].cardClass == 'million'){
+                games[gId].players[victim].active = false;
+            } else{
+                games[gId].players[victim].hand.push(games[gId].drawCard);
+            };
+        }else 
+        if (cardId == 'setup'){
+            if (victim != games[gId].turningPlayer){
+                games[gId].players[games[gId].turningPlayer].hand.push(games[gId].players[victim].hand.splice(0, 1)[0]);
+                games[gId].players[victim].hand.push(games[gId].players[games[gId].turningPlayer].hand.splice(0, 1)[0]);
+            };
+        }else 
+        if (cardId == 'godfather'){}else 
+        if (cardId == 'million'){
+            games[gId].players[socket.id].active = false;}
         let active = games[gId].activePlayers;
         let i;
         for (i in active){
@@ -74,8 +114,41 @@ io.on("connection", (socket) => {
         };
         games[gId].turningPlayer = active[i];
         games[gId].players[games[gId].turningPlayer].hand.push(games[gId].drawCard);
+        games[gId].players[games[gId].turningPlayer].protected = false;
         //console.log(games[gId].activePlayers);
+        if (Object.keys(active).length <= 1 || Object.keys(games[gId].cardsPool).length <= 1){
+            let winner = active[0];
+            let c = 0;
+            if (Object.keys(active).length <= 1){
+                winner = active[0];
+            } else {
+                for (let i in active){
+                    if (active[i].hand[0].rank == winner.rank){
+                        c++;
+                    } else
+                    if (active[i].hand[0].rank > winner.rank){
+                        winner = active[i];
+                        c = 1;
+                    }
+                };
+                if (c > 1) {
+                    let winnerSum = 0;
+                    for (let i in active){
+                        let playerSum = 0;
+                        for (let j in active[i].openedCards){
+                            playerSum += active[i].openedCards[j];
+                        };
+                        if (playerSum > winnerSum){
+                            winnerSum = playerSum;
+                            winner = active[i];
+                        };
+                    };
+                };
+            };
+            io.sockets.emit("end", winner);
+        } else{
         io.sockets.emit("start", games);
+    };
         //console.log(games);
     });
 
