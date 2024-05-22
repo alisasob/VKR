@@ -32,7 +32,6 @@ io.on("connection", (socket) => {
     players = getPlayers();
     games = getGames();
     socket.on("new player", (gId, name) => {
-        let t = Object.keys(players).length;
         games = getGames();
         players[socket.id] = new P.Player({
             id: socket.id,
@@ -40,7 +39,13 @@ io.on("connection", (socket) => {
             gameId: gId,
             number: Object.keys(players).length,
         })
-        if (t >= 2){
+        let t = 0;
+        for (let i in players){
+            if (players[i]._gameId == gId){
+                t++;
+            };
+        };
+        if (t >= 3){
             games[gId] = new G.Game(gId, players);
             io.sockets.emit("start", games);
             players = {};
@@ -123,10 +128,10 @@ io.on("connection", (socket) => {
                 winner = active[0];
             } else {
                 for (let i in active){
-                    if (active[i].hand[0].rank == winner.rank){
+                    if ( games[gId].players[active[i]].hand[0].rank == games[gId].players[winner].hand[0].rank){
                         c++;
                     } else
-                    if (active[i].hand[0].rank > winner.rank){
+                    if (games[gId].players[active[i]].hand[0].rank > games[gId].players[winner].hand[0].rank){
                         winner = active[i];
                         c = 1;
                     }
@@ -145,6 +150,14 @@ io.on("connection", (socket) => {
                     };
                 };
             };
+            console.log(players)
+            for (let i in games[gId].players){
+                delete players[i];
+            }
+            console.log(players)
+            console.log(games)
+            delete games[gId];
+            console.log(games)
             io.sockets.emit("end", winner);
         } else{
         io.sockets.emit("start", games);

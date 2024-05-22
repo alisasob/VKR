@@ -30,6 +30,7 @@ document.querySelector('#join_table_form_button').onclick = function () {
 
 
 function turnClick(cardId) {
+    console.log(cardId);
     if (currentGame.turningPlayer == socket.id){
         let victim;
         if (['police', 'sheriff', 'witness', 'judge', 'killer', 'setup'].includes(cardId)){
@@ -78,14 +79,29 @@ function turnClick(cardId) {
                             document.querySelector('#pick_card_form').style.display = 'none';
                             document.querySelector('#zatemnenie').style.display = 'none';
                             value = document.querySelector('#pick_card_form_input').value;
-                            if (currentGame.players[victim].hand[0].rank != value){
+                            if (currentGame.players[victim].hand[0].rank != value || value == 1){
                                 victim = socket.id;
                             }
                             socket.emit("turn", cardId, victim);
                         }
                     } else
                     if (cardId == 'sheriff'){
+                        document.querySelector('#zatemnenie').style.display = 'inline';
+                        document.querySelector('#pick_card_form').innerHTML = `<input name="pick_card_form_input"
+                         required id="pick_card_form_input" class="card_input" type="text" placeholder="Номинал карты (от 2 до 8)"
+                          minlength="1" maxlength="1"/>
+                        <input id="pick_card_form_button" class="form_button" type="button" value="Ок"/>`;
+                        document.querySelector('#pick_card_form').style.display = 'inline';
+                        document.querySelector('#pick_card_form_button').onclick = function () {
+                            let value;
+                            document.querySelector('#pick_card_form').style.display = 'none';
+                            document.querySelector('#zatemnenie').style.display = 'none';
+                            value = document.querySelector('#pick_card_form_input').value;
+                            if (currentGame.players[victim].hand[0].rank != value || value == 1){
+                                victim = socket.id;
+                            }
                         socket.emit("turn", cardId, victim);
+                        }
                     } else
                     if (cardId == 'witness'){
                         let img = `card_img${currentGame.players[victim].hand[0].rank}.png`;
@@ -112,8 +128,12 @@ function turnClick(cardId) {
                         socket.emit("turn", cardId, victim);
                     } else
                     if (cardId == 'killer'){
-                        let c = (currentGame.players[socket.id].hand[0] == 'killer') ? currentGame.players[socket.id].hand[1].rank
-                                                                                        : currentGame.players[socket.id].hand[0].rank;
+                        let c;
+                        if (currentGame.players[socket.id].hand[0].cardClass == 'killer') {
+                            c = currentGame.players[socket.id].hand[1].rank;
+                        } else {
+                            c = currentGame.players[socket.id].hand[0].rank;
+                        };
                         if (c == 7){
                             document.querySelector('#comment').innerHTML = '<p>Некорректный ход!</p>';
                             document.querySelector('#zatemnenie').style.display = 'inline';
@@ -127,8 +147,12 @@ function turnClick(cardId) {
                         socket.emit("turn", cardId, victim);
                     } else
                     if (cardId == 'setup'){
-                        let c = (currentGame.players[socket.id].hand[0] == 'setup') ? currentGame.players[socket.id].hand[1].rank
-                                                                                    : currentGame.players[socket.id].hand[0].rank;
+                        let c;
+                        if (currentGame.players[socket.id].hand[0].cardClass == 'setup') {
+                            c = currentGame.players[socket.id].hand[1].rank;
+                        } else {
+                            c = currentGame.players[socket.id].hand[0].rank;
+                        };
                         if (c == 7){
                             document.querySelector('#comment').innerHTML = '<p>Некорректный ход!</p>';
                             document.querySelector('#zatemnenie').style.display = 'inline';
@@ -167,22 +191,6 @@ socket.on("start", (games) => {
             }
         }
     }
-    // let active = currentGame.activePlayers();
-    // if (Object.keys(active).length <= 1 || Object.keys(currentGame.cardsPool).length <= 1){
-    //     let winner = active[0];
-    //     if (Object.keys(active).length <= 1){
-    //         winner = active[0];
-    //     } else {
-    //         for (let i in active){
-    //             if (active[i].hand[0].rank > winner.rank){
-    //                 winner = active[i];
-    //             }
-    //         }
-    //     }
-    //     document.querySelector('#comment').innerHTML = `<p>Игра окончена!</p><p>Победил ${winner._name}!</p>`;
-    //                         document.querySelector('#zatemnenie').style.display = 'inline';
-    //                         document.querySelector('#comment').style.display = 'inline';
-    // }
     let htmlStr = ``;
     let k = Object.keys(gp).length - 1;
     for (let id in gp){
@@ -232,7 +240,8 @@ socket.on("start", (games) => {
 });
 
 socket.on("end", (winner) => {
-    document.querySelector('#comment').innerHTML = `<p>Игра окончена!</p><p>Победил ${winner._name}!</p>`;
+    document.querySelector('#comment').innerHTML = `<p>Игра окончена!</p><p>Победил ${currentGame.players[winner]._name}!</p>`;
                              document.querySelector('#zatemnenie').style.display = 'inline';
                              document.querySelector('#comment').style.display = 'inline';
+    
 });
