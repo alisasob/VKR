@@ -52,12 +52,17 @@ io.on("connection", (socket) => {
                 t++;
             };
         };
-        players[socket.id] = new P.Player({
-            id: socket.id,
-            name: name,
-            gameId: gId,
-            number: t,
-        })
+        if (t < 3){
+            players[socket.id] = new P.Player({
+                id: socket.id,
+                name: name,
+                gameId: gId,
+                number: t,
+            })
+        } else {
+            socket.emit("overflow");
+            return;
+        }
         p[socket.id] = players[socket.id];
         //console.log('t', t)
         //console.log('players', players)
@@ -135,12 +140,16 @@ io.on("connection", (socket) => {
         }
         let active = games[gId].activePlayers;
         let i;
+        let c = 0;
         for (i in active){
             if (active[i] == games[gId].turningPlayer){
+                c++;
                 break;
             };
         };
-        i++;
+        if (c != 0){
+            i++;
+        };
         if (i == Object.keys(active).length){
             i = 0;
         };

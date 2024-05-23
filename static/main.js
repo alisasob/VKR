@@ -169,8 +169,8 @@ function turnClick(cardId) {
                                         if (currentGame.players[victim].hand[0].rank != value || value == 1){
                                             victim = 'death';
                                             //console.log("if of death", victim)
-                                            socket.emit("turn", cardId, victim);
                                         };
+                                        socket.emit("turn", cardId, victim);
                                     };
                                 };
                                 document.querySelector('#continue_form_no').onclick = function () {
@@ -260,8 +260,6 @@ function turnClick(cardId) {
 
 socket.on("new gId", (cGames) => {
     currentGames = cGames;
-    //console.log('its notWORKING $%%^%*&*')
-    //console.log(currentGames)
 });
 
 socket.on("start", (games) => {
@@ -285,6 +283,8 @@ socket.on("start", (games) => {
     }
     let htmlStr = ``;
     let k = Object.keys(gp).length - 1;
+    let c = 0;
+    let style;
     for (let id in gp){
         player = gp[id];
         //console.log(player.openedCards)
@@ -295,22 +295,35 @@ socket.on("start", (games) => {
         if (player.active == false){
             color = 'red';
         }
-        htmlStr += `<div class="player" style="bottom: ${47 - (k * 45)}%">
+        if (id == socket.id){
+            style = ``;
+        } else{
+            if (c == 0){
+                style = `right: 48%; transform: rotate(0.25turn);`;
+                c++;
+            } else{
+                style = `left: 48%; transform: rotate(-0.25turn);`;
+            };
+        };
+        htmlStr += `<div class="player" style="${style}">
                     <p class="player_name" style="text-shadow: ${color} 0 0 5px">${player._name}</p>
                     <div class="table_cards">`;
         if (Object.keys(player.openedCards).length == 0){
             htmlStr += `</div></div>`;
         }
         else {
+            k = ~~ (Object.keys(player.openedCards).length / 2);
+            console.log(k);
+            k *= -1; 
             for (let i in player.openedCards){
-                htmlStr += `<div class="table_card" id="${player.openedCards[i].cardClass}" style="right: ${47 - (i * 55)}%">
+                htmlStr += `<div class="table_card" id="${player.openedCards[i].cardClass}" style="left: ${k*20}%;">
                                     <div class="rank"><p>${player.openedCards[i].rank}</p></div>
                                     <div class="num_of_cards"><p>${player.openedCards[i].number}</p></div>
-                                </div>`
+                                </div>`;
+                k += 2;
             };  
             htmlStr += `</div></div>`;
-        };
-        k--;           
+        };      
     } ;
     document.querySelector('#players').innerHTML = htmlStr;
     //console.log(htmlStr);
@@ -339,8 +352,20 @@ socket.on("start", (games) => {
 });
 
 socket.on("end", (winner) => {
-    document.querySelector('#comment').innerHTML = `<p>Игра окончена!</p><p>Победил ${currentGame.players[winner]._name}!</p>`;
-                             document.querySelector('#zatemnenie').style.display = 'inline';
-                             document.querySelector('#comment').style.display = 'inline';
+    document.querySelector('#comment').innerHTML = `<p>Игра окончена!</p><p>Победил ${currentGame.players[winner]._name}!</p>
+                                                    <input id="reset_button" class="form_button" type="button" value="Сыграть ещё раз"/>`;
+    document.querySelector('#zatemnenie').style.display = 'inline';
+    document.querySelector('#comment').style.display = 'inline';
+    document.querySelector('#reset_button').onclick = function () {
+        socket.emit("new player", currentGame._id, currentGame.players[socket.id]._name);
+        document.querySelector('#zatemnenie').style.display = 'none';
+        document.querySelector('#comment').style.display = 'none';
+    };
     
+});
+
+socket.on("overflow", () => {
+    document.querySelector('#comment').innerHTML = `<p>Произошла ошибка!</p><p>Перезагрузите страницу.</p>`;
+    document.querySelector('#zatemnenie').style.display = 'inline';
+    document.querySelector('#comment').style.display = 'inline';
 });
