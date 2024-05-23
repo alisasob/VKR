@@ -31,24 +31,39 @@ let games = null;
 io.on("connection", (socket) => {
     players = getPlayers();
     games = getGames();
+    //console.log('games: ', games);
+    let cGames = [];
+    for (let i in players){
+        if (!cGames.includes(players[i]._gameId) && !games[players[i]._gameId]){
+            cGames.push(players[i]._gameId);
+
+        };
+    };
+    //console.log('cGames: ', cGames);
+    //console.log('players: ', players);
+    socket.emit("new gId", cGames);
     socket.on("new player", (gId, name) => {
         games = getGames();
+        let t = 0;
+        let p = {};
+        for (let i in players){
+            if (players[i]._gameId == gId){
+                p[i] = players[i];
+                t++;
+            };
+        };
         players[socket.id] = new P.Player({
             id: socket.id,
             name: name,
             gameId: gId,
-            number: Object.keys(players).length,
+            number: t,
         })
-        let t = 0;
-        for (let i in players){
-            if (players[i]._gameId == gId){
-                t++;
-            };
-        };
-        if (t >= 3){
-            games[gId] = new G.Game(gId, players);
+        p[socket.id] = players[socket.id];
+        //console.log('t', t)
+        //console.log('players', players)
+        if (t >= 2){
+            games[gId] = new G.Game(gId, p);
             io.sockets.emit("start", games);
-            players = {};
             //console.log(games[gId]);
         }
     });

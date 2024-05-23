@@ -179,6 +179,7 @@ dialog {
     right: 40%;
 }
 .player_name{
+    text-shadow: #EDE9B9 0 0 5px;
     font: 36px "Palatino Linotype", "Book Antiqua", Palatino, serif; 
     color: #123423;
     padding: 20px;

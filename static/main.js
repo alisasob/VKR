@@ -1,12 +1,14 @@
 const socket = io();
 let currentGame;
+let currentGames = [];
 document.querySelector('#create_table_button').onclick = function () {
     document.querySelector('#create_table_form_container').style.display = 'inline';
 };
 
 document.querySelector('#create_table_form_button').onclick = function () {
-    //let gId = Math.round(Math.random() * (999999 - 100000) + 100000);
-    let gId = 1;
+    let gId = '' + Math.round(Math.random() * (999999 - 100000) + 100000);
+    //console.log(currentGames);
+    //let gId = 1;
     let nick = document.querySelector('#create_table_form_input_name').value;
     socket.emit("new player", gId, nick);
     //console.log(gId);
@@ -16,11 +18,27 @@ document.querySelector('#create_table_form_button').onclick = function () {
 };
 
 document.querySelector('#join_table_button').onclick = function () {
+    let str = ``;
+    for (let i in currentGames){
+        str += ` <input type="radio" id="join_table_form_radio" name="join_table_form_radio" 
+                required class="join_table_form_radio" value="${currentGames[i]}"/>
+                <label for="pick_player_form_radio">${currentGames[i]}</label><br>`;
+    };
+    document.querySelector('#join_table_form_button').insertAdjacentHTML('beforebegin', str);
     document.querySelector('#join_table_form_container').style.display = 'inline';
 };
 
 document.querySelector('#join_table_form_button').onclick = function () {
-    let gId = document.querySelector('#join_table_form_input_ID').value;
+    //console.log('im in click')
+    let gId;
+    let els = document.getElementsByName('join_table_form_radio');
+    for (let i in els){
+        if (els[i].checked){
+            gId = els[i].value;
+            break;
+        };
+    };
+    //console.log('gId: ', gId)
     let nick = document.querySelector('#join_table_form_input_name').value;
     socket.emit("new player", gId, nick);
     document.querySelector('#zatemnenie').style.display = 'none';
@@ -103,7 +121,7 @@ function turnClick(cardId) {
                     if (cardId == 'police'){
                         document.querySelector('#zatemnenie').style.display = 'inline';
                         document.querySelector('#pick_card_form').innerHTML = `<input name="pick_card_form_input"
-                         required id="pick_card_form_input" class="card_input" type="text" placeholder="Номинал карты (от 2 до 8)"
+                          id="pick_card_form_input" class="card_input" type="text" placeholder="Номинал карты (от 2 до 8)"
                           minlength="1" maxlength="1"/>
                         <input id="pick_card_form_button" class="form_button" type="button" value="Ок"/>`;
                         document.querySelector('#pick_card_form').style.display = 'inline';
@@ -121,7 +139,7 @@ function turnClick(cardId) {
                     if (cardId == 'sheriff'){
                         document.querySelector('#zatemnenie').style.display = 'inline';
                         document.querySelector('#pick_card_form').innerHTML = `<input name="pick_card_form_input"
-                                                required id="pick_card_form_input" class="card_input" type="text" placeholder="Номинал карты (от 2 до 8)"
+                                                id="pick_card_form_input" class="card_input" type="text" placeholder="Номинал карты (от 2 до 8)"
                                                 minlength="1" maxlength="1"/>
                                                 <input id="pick_card_form_button" class="form_button" type="button" value="Ок"/>`;
                         document.querySelector('#pick_card_form').style.display = 'inline';
@@ -140,7 +158,7 @@ function turnClick(cardId) {
                                 document.querySelector('#continue_form_yes').onclick = function () {
                                     document.querySelector('#continue_form').style.display = 'none';
                                     document.querySelector('#pick_card_form').innerHTML = `<input name="pick_card_form_input"
-                                                required id="pick_card_form_input" class="card_input" type="text" placeholder="Номинал карты (от 2 до 8)"
+                                                id="pick_card_form_input" class="card_input" type="text" placeholder="Номинал карты (от 2 до 8)"
                                                 minlength="1" maxlength="1"/>
                                                 <input id="pick_card_form_button" class="form_button" type="button" value="Ок"/>`;
                                     document.querySelector('#pick_card_form').style.display = 'inline';
@@ -150,7 +168,7 @@ function turnClick(cardId) {
                                         value = document.querySelector('#pick_card_form_input').value;
                                         if (currentGame.players[victim].hand[0].rank != value || value == 1){
                                             victim = 'death';
-                                            console.log("if of death", victim)
+                                            //console.log("if of death", victim)
                                             socket.emit("turn", cardId, victim);
                                         };
                                     };
@@ -240,6 +258,12 @@ function turnClick(cardId) {
     };
 };
 
+socket.on("new gId", (cGames) => {
+    currentGames = cGames;
+    //console.log('its notWORKING $%%^%*&*')
+    //console.log(currentGames)
+});
+
 socket.on("start", (games) => {
     //console.log(document.querySelector("#pick_player_players").elements["pick_player_form_radio"].value);
     let player;
@@ -247,6 +271,11 @@ socket.on("start", (games) => {
     let gp;
     //console.log(games)
     for (let i in games){
+        for (let j in currentGames){
+            if (i == currentGames[j]){
+                currentGames.splice(j, 1)
+            }
+        }
         for (let j in games[i].players){
             if (games[i].players[j]._id == socket.id){
                 currentGame = games[i];
@@ -259,8 +288,15 @@ socket.on("start", (games) => {
     for (let id in gp){
         player = gp[id];
         //console.log(player.openedCards)
+        let color = '#ede9b9';
+        if (currentGame.turningPlayer == player._id){
+            color = 'green';
+        };
+        if (player.active == false){
+            color = 'red';
+        }
         htmlStr += `<div class="player" style="bottom: ${47 - (k * 45)}%">
-                    <p class="player_name">${player._name}</p>
+                    <p class="player_name" style="text-shadow: ${color} 0 0 5px">${player._name}</p>
                     <div class="table_cards">`;
         if (Object.keys(player.openedCards).length == 0){
             htmlStr += `</div></div>`;
