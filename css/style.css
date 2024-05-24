@@ -190,7 +190,7 @@ dialog {
     position: absolute;
     margin: auto;
     left: 0;
-    right: 30%;
+    right: 0;
 }
 .table_card{
     width: 80px;
