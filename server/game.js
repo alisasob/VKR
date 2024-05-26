@@ -1,5 +1,4 @@
 const C = require("./card.js");
-//const P = require("./player.js");
 const games = {};
 
 class Game{

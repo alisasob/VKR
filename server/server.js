@@ -31,7 +31,6 @@ let games = null;
 io.on("connection", (socket) => {
     players = getPlayers();
     games = getGames();
-    //console.log('games: ', games);
     let cGames = [];
     for (let i in players){
         if (!cGames.includes(players[i]._gameId) && !games[players[i]._gameId]){
@@ -39,8 +38,6 @@ io.on("connection", (socket) => {
 
         };
     };
-    //console.log('cGames: ', cGames);
-    //console.log('players: ', players);
     socket.emit("new gId", cGames);
     socket.on("new player", (gId, name) => {
         games = getGames();
@@ -64,12 +61,9 @@ io.on("connection", (socket) => {
             return;
         }
         p[socket.id] = players[socket.id];
-        //console.log('t', t)
-        //console.log('players', players)
         if (t >= 2){
             games[gId] = new G.Game(gId, p);
             io.sockets.emit("start", games);
-            //console.log(games[gId]);
         }
     });
     socket.on("turn", (cardId, victim) =>
@@ -79,11 +73,7 @@ io.on("connection", (socket) => {
         let gId = players[socket.id]._gameId;
         for (let i in games[gId].players[socket.id].hand){
             if (games[gId].players[socket.id].hand[i].cardClass == cardId){
-                //console.log("hand cards:", games[gId].players[socket.id].hand);
-                //console.log("opened cards:", games[gId].players[socket.id].openedCards);
                 games[gId].players[socket.id].openedCards.push(games[gId].players[socket.id].hand.splice(i, 1)[0])
-                //console.log("hand cards:", games[gId].players[socket.id].hand);
-                //console.log("opened cards:", games[gId].players[socket.id].openedCards);
             };
         };
         if (cardId == 'police'){
@@ -156,7 +146,6 @@ io.on("connection", (socket) => {
         games[gId].turningPlayer = active[i];
         games[gId].players[games[gId].turningPlayer].hand.push(games[gId].drawCard);
         games[gId].players[games[gId].turningPlayer].protected = false;
-        //console.log(games[gId].activePlayers);
         if (Object.keys(active).length <= 1 || Object.keys(games[gId].cardsPool).length <= 1){
             let winner = active[0];
             let c = 0;
@@ -194,7 +183,6 @@ io.on("connection", (socket) => {
         } else{
         io.sockets.emit("start", games);
     };
-        //console.log(games);
     });
 
     socket.on("disconnect", () => {

@@ -12,11 +12,6 @@ class Player{
         this.active = true;
         this.protected = false;
     }
-    get lastCard () {
-        let retVal = {};
-        if (this.openedCards.length() > 0) retVal = this.openedCards[-1];
-        return retVal;
-    }
 };
 
 module.exports.getPlayers = () => {
