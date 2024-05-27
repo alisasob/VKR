@@ -2,7 +2,7 @@ body {
     /* background-image: radial-gradient(circle, #F4F9F4 10%, #C4E3CB 30%, #8AAE92 55%, #616161 100%); */
     background-image: url("back.jpg");
     background-attachment: fixed;
-    min-height: 600px;
+    min-height: 700px;
     background-size: cover;
     margin-top: 30px;
     margin-left: auto;
@@ -259,7 +259,7 @@ dialog {
     height: 200px;
     position: absolute;
     margin: auto;
-    top: 50%;
+    top: 60%;
     left: 0;
     bottom: 0;
     right: 0;

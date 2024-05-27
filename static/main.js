@@ -316,7 +316,7 @@ socket.on("start", (games) => {
             console.log(k);
             k *= -1; 
             for (let i in player.openedCards){
-                htmlStr += `<div class="table_card" id="${player.openedCards[i].cardClass}" style="left: ${k*15}%;">
+                htmlStr += `<div class="table_card" id="${player.openedCards[i].cardClass}" style="left: ${k*20}%;">
                                     <div class="rank"><p>${player.openedCards[i].rank}</p></div>
                                     <div class="num_of_cards"><p>${player.openedCards[i].number}</p></div>
                                 </div>`;
