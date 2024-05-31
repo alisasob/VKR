@@ -314,7 +314,6 @@ socket.on("start", (games) => {
         }
         else {
             k = Object.keys(player.openedCards).length - 1;
-            console.log(k);
             k *= -1; 
             for (let i in player.openedCards){
                 htmlStr += `<div class="table_card" id="${player.openedCards[i].cardClass}" style="left: ${k*20}%;">
