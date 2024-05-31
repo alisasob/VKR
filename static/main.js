@@ -15,6 +15,7 @@ document.querySelector('#create_table_form_button').onclick = function () {
     document.querySelector('#zatemnenie').style.display = 'none';
     document.querySelector('dialog').close();
     document.querySelector('#create_table_form_container').style.display = 'none';
+    alert (`Номер стола: ${gId}`);
 };
 
 document.querySelector('#join_table_button').onclick = function () {
