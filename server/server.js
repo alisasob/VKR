@@ -12,7 +12,7 @@ const app = express();
 const server = http.Server(app);
 const io = socketIO(server);
 
-app.set("port", 3000);
+app.set("port", 80);
 app.set("view engine", "ejs")
 app.use("/css", express.static(path.dirname(__dirname) + "/css"));
 app.use("/static", express.static(path.dirname(__dirname) + "/static"));
@@ -22,8 +22,8 @@ app.get("/", (request, response) => {
     //response.render("index");
 });
 
-server.listen(3000, function(){
-    console.log("Starting server on port 3000");
+server.listen(80, function(){
+    console.log("Starting server on port 80");
 });
 
 let players = null;
