@@ -143,10 +143,8 @@ io.on("connection", (socket) => {
         if (i == Object.keys(active).length){
             i = 0;
         };
-        games[gId].turningPlayer = active[i];
-        games[gId].players[games[gId].turningPlayer].hand.push(games[gId].drawCard);
-        games[gId].players[games[gId].turningPlayer].protected = false;
         if (Object.keys(active).length <= 1 || Object.keys(games[gId].cardsPool).length <= 1){
+            io.sockets.emit("start", games);
             let winner = active[0];
             let c = 0;
             if (Object.keys(active).length <= 1){
@@ -181,6 +179,9 @@ io.on("connection", (socket) => {
             delete games[gId];
             io.sockets.emit("end", winner);
         } else{
+            games[gId].turningPlayer = active[i];
+            games[gId].players[games[gId].turningPlayer].hand.push(games[gId].drawCard);
+            games[gId].players[games[gId].turningPlayer].protected = false;
         io.sockets.emit("start", games);
     };
     });
